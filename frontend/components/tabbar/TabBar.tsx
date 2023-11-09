@@ -1,19 +1,38 @@
+import { FC } from "react";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
+import Groups from "../../screens/Groups";
+import Competitions from "../../screens/Competitions";
+import Search from "../search/search";
+import Header from "../header/header";
+import NavBarAccount from "../navigation/navBarAccount";
+import { NavigatorScreenParams } from '@react-navigation/native';
+import { StackParamList } from "../navigation/navBarAccount";
 
-import Groups from '../../screens/Groups';
-import Competitions from '../../screens/Competitions';
-import Account from '../../screens/Account';
+export type TabParamList = {
+    Groups: undefined,
+    Competitions: undefined,
+    NavBarAccount: NavigatorScreenParams<StackParamList>,
+};
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<TabParamList>();
 
-const Tabs: FC = () => {
+const TabBar: FC = () => {
+
+    const headerStyle = {
+        height: 60,
+        borderBottomStartRadius: 10,
+        borderBottomEndRadius: 10,
+        backgroundColor: "#FFD700",
+    }
+
     return(
         <Tab.Navigator
-            screenOptions={({ route }) => ({
+            screenOptions={({ route, navigation }) => ({
                  tabBarShowLabel: false,
                  tabBarStyle: {...styleTabBar.tabBar},
-                 tabBarIcon: ({ focused, color, size }) => {
+                 headerShown : route.name === 'NavBarAccount' ? false : true,
+                 tabBarIcon: ({color}) => {
                             let iconName;
                             let label;
 
@@ -23,7 +42,7 @@ const Tabs: FC = () => {
                             } else if (route.name === 'Competitions') {
                               iconName = require('../../public/icons/competitions.png');
                               label = 'Конкурсы'
-                            } else if(route.name === 'Account') {
+                            } else if(route.name === 'NavBarAccount') {
                               iconName = require('../../public/icons/account.png');
                               label = 'Кабинет'
                             }
@@ -43,14 +62,28 @@ const Tabs: FC = () => {
                                     </Text>
                                 </View>
                             )
-
-                 },
-                  tabBarActiveTintColor: '#FF6B00',
-                  tabBarInactiveTintColor: '#4F4F4F',
+                },
+                    tabBarActiveTintColor: '#FF6B00',
+                    tabBarInactiveTintColor: '#4F4F4F',
+                  
             })} >
-            <Tab.Screen name="Groups" component = {Groups} />
-            <Tab.Screen name="Competitions" component = {Competitions} />
-            <Tab.Screen name="Account" component = {Account} />
+            <Tab.Screen name="Groups" component = {Groups} 
+                options={{
+                    headerTitle() {
+                        return <Header><Search/></Header>
+                    },
+                    headerStyle: {...headerStyle}, 
+                }}
+            />
+            <Tab.Screen name="Competitions" component = {Competitions}                 
+                options={{
+                    headerTitle() {
+                        return <Header><Search/></Header>
+                    },
+                    headerStyle: {...headerStyle},  
+                }}
+            />
+            <Tab.Screen name="NavBarAccount" key = {'accountNavbar'} component = {NavBarAccount} />
         </Tab.Navigator>
     )
 }
@@ -83,7 +116,7 @@ const styleTabBar = StyleSheet.create({
         fontWeight: '600',
         lineHeight: 8,
         textTransform: 'uppercase',
-    }
+    },
 })
 
-export default Tabs;
+export default TabBar;
