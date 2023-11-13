@@ -2,8 +2,8 @@ import {FC, PropsWithChildren} from 'react';
 import { TouchableOpacity } from "react-native"
 
 type ButtonProps = {
-    activity?: () => {},
-    buttonStyle: object,
+    activity: () => void,
+    buttonStyle?: object,
 }
 
 const Button: FC<PropsWithChildren<ButtonProps>> = ({activity = () => {}, buttonStyle, children }) => {
@@ -11,7 +11,7 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({activity = () => {}, button
         <TouchableOpacity
             onPress={activity}
             style = {buttonStyle}
-            activeOpacity={1}
+            activeOpacity={0.6}
         >
             {children}
         </TouchableOpacity>

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Groups from '../../screens/Groups';;
+import Groups from '../../src/screens/Groups';;
 import Search from '../search/search';
 
 

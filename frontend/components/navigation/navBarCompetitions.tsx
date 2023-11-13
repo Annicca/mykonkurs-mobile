@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
-import Competitions from '../../screens/Competitions';
+import Competitions from '../../src/screens/Competitions';
 import Search from '../search/search';
 
 const Stack = createStackNavigator();

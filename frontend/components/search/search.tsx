@@ -8,9 +8,11 @@ const Search: FC = () => {
         <View style = {searchStyle.search}>
             <Button
                 // activity={}
-                buttonStyle={searchStyle.icon}
+
+                buttonStyle={searchStyle.iconButton}
             >
                 <Image 
+                    resizeMode = 'contain'
                     source={require('../../public/icons/search.png')} 
                     
                 />
@@ -36,12 +38,15 @@ const searchStyle = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#FFF',
     },
-    icon: {
+    iconButton: {
         position: 'absolute',
         zIndex: 1,
         top: '25%',
         left: 10,
-    }
+        height: 10,
+        width: 15,
+
+    },
 })
 
 export default Search;

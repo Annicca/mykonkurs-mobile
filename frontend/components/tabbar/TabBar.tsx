@@ -1,13 +1,15 @@
 import { FC } from "react";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StyleSheet, Text, View, Image} from 'react-native';
-import Groups from "../../screens/Groups";
-import Competitions from "../../screens/Competitions";
+import Groups from "../../src/screens/Groups";
+import Competitions from "../../src/screens/Competitions";
 import Search from "../search/search";
 import Header from "../header/header";
 import NavBarAccount from "../navigation/navBarAccount";
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { StackParamList } from "../navigation/navBarAccount";
+
+import { AccountIcon, GroupsIcon, CompetitionsIcon } from "../../public/icons";
 
 export type TabParamList = {
     Groups: undefined,
@@ -37,13 +39,13 @@ const TabBar: FC = () => {
                             let label;
 
                             if (route.name === 'Groups') {
-                              iconName = require('../../public/icons/groups.png');
+                              iconName = GroupsIcon;
                               label = 'Коллективы'
                             } else if (route.name === 'Competitions') {
-                              iconName = require('../../public/icons/competitions.png');
+                              iconName = CompetitionsIcon;
                               label = 'Конкурсы'
                             } else if(route.name === 'NavBarAccount') {
-                              iconName = require('../../public/icons/account.png');
+                              iconName = AccountIcon;
                               label = 'Кабинет'
                             }
                             return  (
@@ -90,13 +92,12 @@ const TabBar: FC = () => {
 
 const styleTabBar = StyleSheet.create({
     tabBar: {
-      borderTopLeftRadius: 10,
-      borderTopRightRadius: 10,
-      borderTopStyle: 'solid',
-      borderTopWidth: 2,
-      borderTopColor: '#FFD700',
-      backgroundColor: '#FFF',
-      height: 50,
+        marginHorizontal: 20,
+        borderRadius:20,
+        position:'absolute',
+        bottom: 10,
+        backgroundColor: '#FFF',
+        height: 60,
     },
     containerIcon: {
         display: 'flex',
