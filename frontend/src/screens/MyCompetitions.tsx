@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 const MyCompetitions: FC = () => {
     return(
         <View>
-            <Text>My Groups</Text>
+            <Text>My Competitions</Text>
         </View>
     )
 }

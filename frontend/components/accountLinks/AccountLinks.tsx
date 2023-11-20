@@ -29,6 +29,7 @@ const AccountLinks: FC<AccountLinkspops> = ({role}) => {
                         iconName={StatementIcon} 
                         text = 'Мои заявки'
                         textStyle={styleAccountLinks.text}
+                        border = {true}
                         styleIcon = {{width: 20, height: 20}}
                         transition = {true} 
                     />
@@ -39,6 +40,7 @@ const AccountLinks: FC<AccountLinkspops> = ({role}) => {
                         text = 'Заявки на участие' 
                         textStyle={styleAccountLinks.text}
                         styleIcon = {{width: 20, height: 20}}
+                        border = {true}
                         transition = {true} 
                     />
                 </Button>
@@ -62,6 +64,7 @@ const AccountLinks: FC<AccountLinkspops> = ({role}) => {
                         text = 'Мои заявки'
                         textStyle={styleAccountLinks.text}
                         styleIcon = {{width: 20, height: 20}}
+                        border = {true}
                         transition = {true} 
                     />
                 </Button>
@@ -71,6 +74,7 @@ const AccountLinks: FC<AccountLinkspops> = ({role}) => {
                         text = 'Заявки на участие' 
                         textStyle={styleAccountLinks.text}
                         styleIcon = {{width: 20, height: 20}}
+                        border = {true}
                         transition = {true} 
                     />
                 </Button>
@@ -112,8 +116,8 @@ const styleAccountLinks = StyleSheet.create({
         marginHorizontal: 20,
         borderRadius: 10,
         backgroundColor: '#FFF',
-        elevation: 8,
-        shadowColor: '#000',
+        borderColor: 'rgba(136, 136, 136, 0.1);',
+        borderWidth: 1,
     },
     text: {
         fontFamily: 'Inter-Regular',
@@ -132,8 +136,8 @@ const styleAccountLinks = StyleSheet.create({
         paddingVertical: 15,
         width: '50%',
         alignItems: 'center',
-        elevation: 8,
-        shadowColor: '#000',
+        borderColor: 'rgba(136, 136, 136, 0.1);',
+        borderWidth: 1,
     },
     textButtonLogin: {
         fontFamily: 'Inter-Medium',

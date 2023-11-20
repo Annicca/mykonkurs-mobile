@@ -39,16 +39,21 @@ public class CompetitionFilter implements Specification<Competition> {
         if(isStatusCompetition){
             predicates.add(criteriaBuilder.equal(root.get("statusCompetition"),StatusCompetition.CREATED));
         }
+
+        predicates.add(criteriaBuilder.notEqual(root.get("statusCompetition"),StatusCompetition.FINISHED));
+        predicates.add(criteriaBuilder.notEqual(root.get("statusCompetition"),StatusCompetition.CANCELLED));
+
         if (StringUtils.isNotBlank(typeSort)) {
             if (typeSort.equals("DESC")) {
                 query.orderBy(criteriaBuilder.desc(root.get("dateStart")));
             } else if (typeSort.equals("ASC")) {
                 query.orderBy(criteriaBuilder.asc(root.get("dateStart")));
             }
-        }else {
+        } else {
             query.orderBy(criteriaBuilder.desc(root.get("dateStart")));
         }
-        return predicates.size() <= 0 ? null : criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+
+        return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
     }
 
     public String getCityCompetition() {

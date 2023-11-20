@@ -1,36 +1,25 @@
 import { FC } from "react";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StyleSheet, Text, View, Image} from 'react-native';
-import Groups from "../../src/screens/Groups";
-import Competitions from "../../src/screens/Competitions";
-import Search from "../search/search";
-import Header from "../header/header";
-import NavBarAccount from "../navigation/navBarAccount";
 import { NavigatorScreenParams } from '@react-navigation/native';
-import { StackParamList } from "../navigation/navBarAccount";
-
+import NavBarAccount, { AccountParamList } from "../navigation/navBarAccount";
+import NavBarGroups, { GroupsParamList } from "../navigation/navBarGroups";
+import NavBarCompetitions, { CompetitionsParamList } from "../navigation/navBarCompetitions";
 import { AccountIcon, GroupsIcon, CompetitionsIcon } from "../../public/icons";
 
 export type TabParamList = {
-    Groups: undefined,
-    Competitions: undefined,
-    NavBarAccount: NavigatorScreenParams<StackParamList>,
+    NavBarGroups: NavigatorScreenParams<GroupsParamList>,
+    NavBarCompetitions: NavigatorScreenParams<CompetitionsParamList>,
+    NavBarAccount: NavigatorScreenParams<AccountParamList>,
 };
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
 const TabBar: FC = () => {
 
-    const headerStyle = {
-        height: 60,
-        borderBottomStartRadius: 10,
-        borderBottomEndRadius: 10,
-        backgroundColor: "#FFD700",
-    }
-
     return(
         <Tab.Navigator
-            screenOptions={({ route, navigation }) => ({
+            screenOptions={({ route }) => ({
                  tabBarShowLabel: false,
                  tabBarStyle: {...styleTabBar.tabBar},
                  headerShown : route.name === 'NavBarAccount' ? false : true,
@@ -38,10 +27,10 @@ const TabBar: FC = () => {
                             let iconName;
                             let label;
 
-                            if (route.name === 'Groups') {
+                            if (route.name === 'NavBarGroups') {
                               iconName = GroupsIcon;
                               label = 'Коллективы'
-                            } else if (route.name === 'Competitions') {
+                            } else if (route.name === 'NavBarCompetitions') {
                               iconName = CompetitionsIcon;
                               label = 'Конкурсы'
                             } else if(route.name === 'NavBarAccount') {
@@ -69,22 +58,8 @@ const TabBar: FC = () => {
                     tabBarInactiveTintColor: '#4F4F4F',
                   
             })} >
-            <Tab.Screen name="Groups" component = {Groups} 
-                options={{
-                    headerTitle() {
-                        return <Header><Search/></Header>
-                    },
-                    headerStyle: {...headerStyle}, 
-                }}
-            />
-            <Tab.Screen name="Competitions" component = {Competitions}                 
-                options={{
-                    headerTitle() {
-                        return <Header><Search/></Header>
-                    },
-                    headerStyle: {...headerStyle},  
-                }}
-            />
+            <Tab.Screen name="NavBarGroups" key = {'groupsNavbar'} component = {NavBarGroups} options={{headerShown: false}} />
+            <Tab.Screen name="NavBarCompetitions" key = {'competitionsNavBar'} component = {NavBarCompetitions} options={{headerShown: false}} />
             <Tab.Screen name="NavBarAccount" key = {'accountNavbar'} component = {NavBarAccount} />
         </Tab.Navigator>
     )
@@ -97,6 +72,9 @@ const styleTabBar = StyleSheet.create({
         position:'absolute',
         bottom: 10,
         backgroundColor: '#FFF',
+        borderColor: 'rgba(136, 136, 136, 0.2);',
+        borderWidth: 1,
+        shadowColor: '#FFF',
         height: 60,
     },
     containerIcon: {

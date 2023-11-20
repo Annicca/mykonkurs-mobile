@@ -8,7 +8,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 type StatementButtonProps = {
     text: string,
-    containerStyle: object
+    containerStyle?: object
 }
 
 const StatementButton: FC<StatementButtonProps> = ({text, containerStyle}) => {
@@ -34,10 +34,11 @@ const StatementButton: FC<StatementButtonProps> = ({text, containerStyle}) => {
 const styleStatementButton = StyleSheet.create({
     button: {
         width: 210,
-        elevation: 8,
-        shadowColor: '#000',
         borderRadius: 20,
-        backgroundColor: '#FFF'
+        backgroundColor: '#FFF',
+        borderColor: 'rgba(136, 136, 136, 0.1);',
+        borderWidth: 1,
+
     },
     gradient: {
         paddingVertical: 9,
@@ -47,7 +48,7 @@ const styleStatementButton = StyleSheet.create({
     },
     text: {
         fontFamily: 'Inter-Bold',
-        fontSize: 12,
+        fontSize: 14,
         color: '#000'
     }
 })

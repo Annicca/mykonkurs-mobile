@@ -1,3 +1,4 @@
+import { CityType } from "./CityType"
 import { UserType } from "./UserType"
 
 export type GroupType = {
@@ -5,7 +6,7 @@ export type GroupType = {
     director: UserType,
     nameGroup: string,
     descriptionGroup: string,
-    cityGroup: string,
+    cityGroup: CityType,
     addressGroup: string,
     category: string | null,
     img: string | null,

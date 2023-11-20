@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import 'react-native-gesture-handler';
-import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
-import { StackNavigationOptions} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
+import { screenOptions, options } from '../../src/utils/navigationOptions';
 import Account from '../../src/screens/Account';
 import MyStatements from '../../src/screens/MyStatements';
 import StatementParticipant from '../../src/screens/StatementParticipant';
@@ -11,7 +11,7 @@ import StatementForm from '../../src/screens/StatementForm';
 import Login from '../../src/screens/Login';
 import Registry from '../../src/screens/Registry';
 
-export type StackParamList = {
+export type AccountParamList = {
     Account: undefined,
     MyStatements: undefined,
     StatementParticipant: undefined,
@@ -22,30 +22,9 @@ export type StackParamList = {
     Registry: undefined
 }
 
-const Stack = createStackNavigator<StackParamList>();
+const Stack = createStackNavigator<AccountParamList>();
 
 const NavBarAccount: FC = () => {
-
-    const screenOptions:StackNavigationOptions = {
-        headerMode: 'float',
-        gestureEnabled: true,
-        ...TransitionPresets.SlideFromRightIOS
-    }
-
-    const options:StackNavigationOptions = {
-        headerStyle:{        
-            height: 60,
-            borderBottomStartRadius: 10,
-            borderBottomEndRadius: 10,
-            backgroundColor: "#FFD700",
-        }, 
-        headerTitleStyle: {
-            color: '#FFF',
-            fontFamily: 'Inter-Bold',
-            fontSize: 20,
-        },
-        headerTintColor: '#FFF',
-    }
 
     return(
         <Stack.Navigator
@@ -59,7 +38,6 @@ const NavBarAccount: FC = () => {
                     ...options,
                     headerTitle: 'Кабинет',
                 }}
-                
             />
             <Stack.Screen
                 name = 'MyStatements'

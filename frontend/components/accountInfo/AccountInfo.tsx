@@ -42,8 +42,8 @@ const infoStyle = StyleSheet.create({
         marginHorizontal: 20,
         borderRadius: 10,
         backgroundColor: '#FFF',
-        elevation: 8,
-        shadowColor: '#000',
+        borderColor: 'rgba(136, 136, 136, 0.1);',
+        borderWidth: 1,
     },
     containerName: {
         flexDirection: 'row',

@@ -5,7 +5,6 @@
  * @format
  */
 
-
 import {NavigationContainer} from '@react-navigation/native'
 import TabBar from './components/tabbar/TabBar';
 

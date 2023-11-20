@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { View, Text, Image, StyleSheet, StyleProp, TextStyle } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { ArrowIcon } from '../../public/icons';
 
 type TextIconProps = {
@@ -7,15 +7,16 @@ type TextIconProps = {
     textStyle: object,
     iconName: any,
     transition?: boolean,
+    border?: boolean,
     styleIcon: {
         width: number,
         height: number
     }
 }
 
-const TextIcon: FC<TextIconProps> = ({text, textStyle, iconName, transition = false, styleIcon}) => {
+const TextIcon: FC<TextIconProps> = ({text, textStyle, iconName, transition = false, border = false, styleIcon}) => {
     return(
-        <View style = {textIconStyle.container}>
+        <View style = {border? [textIconStyle.container, textIconStyle.border] : textIconStyle.container}>
             <View style = {textIconStyle.containerImg}>
                 <Image source={iconName} style = {styleIcon} resizeMode='contain' />
                 <Text style = {textStyle}>{text}</Text>
@@ -44,6 +45,11 @@ const textIconStyle = StyleSheet.create({
     arrow: {
         width: 10,
         height: 10
+    },
+    border: {
+        paddingBottom: 10,
+        borderBottomWidth: 1,
+        borderBottomColor:'rgba(136, 136, 136, 0.1);',
     }
 })
 

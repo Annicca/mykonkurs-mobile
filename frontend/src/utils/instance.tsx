@@ -1,8 +1,12 @@
 import axios from "axios";
+import { baseURL } from "../consts/const";
 
 
 export const instance = axios.create({
-    baseURL: 'http://192.168.56.1:8080/api/',
-    timeout: 1000,
-    headers: {'Content-Type': 'application/json'},
+    baseURL: `${baseURL}`,
+    timeout: 50000,
+    headers: {
+        Accept: 'application/json',
+        'content-Type': 'application/json'
+    },
 });
