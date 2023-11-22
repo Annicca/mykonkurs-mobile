@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import {View, StyleSheet} from 'react-native';
-import AccountInfo from '../../components/accountInfo/AccountInfo';
-import AccountLinks from '../../components/accountLinks/AccountLinks';
-import StatementButton from '../../components/statementButton/StatementButton';
+import AccountInfo from '../components/accountInfo/AccountInfo';
+import AccountLinks from '../components/accountLinks/AccountLinks';
+import StatementButton from '../components/statementButton/StatementButton';
 import { UserRole } from '../consts/const';
 
 const Account: FC = () => {

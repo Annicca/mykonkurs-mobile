@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import { Text } from "react-native"
 import { StackScreenProps } from '@react-navigation/stack';
-import { GroupsParamList } from '../../components/navigation/navBarGroups';
+import { GroupsParamList } from '../components/navigation/navBarGroups';
 
 
 const Group: FC<StackScreenProps<GroupsParamList, 'Group'>> = ({route}) => {

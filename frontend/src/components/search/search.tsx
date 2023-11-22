@@ -2,18 +2,19 @@ import { FC } from "react"
 import { View, StyleSheet, Image } from "react-native"
 import Input from "../input/input"
 import Button from "../button/button"
+import { SearchIcon } from "../../../public/icons"
 
 const Search: FC = () => {
     return(
         <View style = {searchStyle.search}>
             <Button
-                // activity={}
+                // activity={() => {}}
 
                 buttonStyle={searchStyle.iconButton}
             >
                 <Image 
                     resizeMode = 'contain'
-                    source={require('../../public/icons/search.png')} 
+                    source={SearchIcon} 
                     
                 />
             </Button>

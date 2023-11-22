@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { ArrowIcon } from '../../public/icons';
+import { ArrowIcon } from '../../../public/icons';
+import { textStyle } from '../../styles/text/textStyle';
 
 type TextIconProps = {
     text: string,
-    textStyle: object,
     iconName: any,
     transition?: boolean,
     border?: boolean,
@@ -14,7 +14,7 @@ type TextIconProps = {
     }
 }
 
-const TextIcon: FC<TextIconProps> = ({text, textStyle, iconName, transition = false, border = false, styleIcon}) => {
+const TextIcon: FC<TextIconProps> = ({text, iconName, transition = false, border = false, styleIcon}) => {
     return(
         <View style = {border? [textIconStyle.container, textIconStyle.border] : textIconStyle.container}>
             <View style = {textIconStyle.containerImg}>

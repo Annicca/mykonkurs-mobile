@@ -2,7 +2,7 @@ import {FC, PropsWithChildren} from 'react';
 import { TouchableOpacity } from "react-native"
 
 type ButtonProps = {
-    activity: () => void,
+    activity?: () => void,
     buttonStyle?: object,
 }
 

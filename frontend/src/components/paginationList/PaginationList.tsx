@@ -1,6 +1,7 @@
 import {View, Text, FlatList,  ListRenderItem, StyleSheet} from 'react-native';
-import usePaginationFetch from '../../src/hooks/usePaginationFetch';
+import usePaginationFetch from '../../hooks/usePaginationFetch';
 import { ReactElement } from 'react';
+import Spinner from '../spinner/Spinner';
 
 
 type PaginationListProps<T> = {
@@ -23,18 +24,19 @@ export default function PaginationList<T>({dataFetchUrl, renderItem, headerCompo
     
     return(
         <View>
-            {!!data && 
-            <FlatList 
-            data={data}
-            ListHeaderComponent={headerComponent}
-            removeClippedSubviews = {true}
-            initialNumToRender = {10}
-            renderItem={renderItem }
-            contentContainerStyle = {containerStyle ? containerStyle : listStyle.list}
-            ListEmptyComponent={() => <Text style = {listStyle.text}>{emtytext}</Text>}
-            onEndReachedThreshold={0.5}
-            onEndReached={loadData}
-            />
+            {loading ? 
+                <Spinner /> :
+                <FlatList 
+                data={data}
+                ListHeaderComponent={headerComponent}
+                removeClippedSubviews = {true}
+                initialNumToRender = {10}
+                renderItem={renderItem }
+                contentContainerStyle = {containerStyle ? containerStyle : listStyle.list}
+                ListEmptyComponent={() => <Text style = {listStyle.text}>{emtytext}</Text>}
+                onEndReachedThreshold={0.5}
+                onEndReached={loadData}
+                />
             }
         </View>
     )

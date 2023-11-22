@@ -1,15 +1,15 @@
 import { FC } from 'react';
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
-import { screenOptions, options } from '../../src/utils/navigationOptions';
-import Account from '../../src/screens/Account';
-import MyStatements from '../../src/screens/MyStatements';
-import StatementParticipant from '../../src/screens/StatementParticipant';
-import MyGroups from '../../src/screens/MyGroups';
-import MyCompetitions from '../../src/screens/MyCompetitions';
-import StatementForm from '../../src/screens/StatementForm';
-import Login from '../../src/screens/Login';
-import Registry from '../../src/screens/Registry';
+import { screenOptions, options } from '../../utils/navigationOptions';
+import Account from '../../screens/Account';
+import MyStatements from '../../screens/MyStatements';
+import StatementParticipant from '../../screens/StatementParticipant';
+import MyGroups from '../../screens/MyGroups';
+import MyCompetitions from '../../screens/MyCompetitions';
+import StatementForm from '../../screens/StatementForm';
+import Login from '../../screens/Login';
+import Registry from '../../screens/Registry';
 
 export type AccountParamList = {
     Account: undefined,

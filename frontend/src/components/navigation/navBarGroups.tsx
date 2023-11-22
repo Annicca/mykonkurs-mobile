@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
-import { screenOptions, options } from '../../src/utils/navigationOptions';
-import Groups from '../../src/screens/Groups';
-import Group from '../../src/screens/Group';
+import { screenOptions, options } from '../../utils/navigationOptions';
+import Groups from '../../screens/Groups';
+import Group from '../../screens/Group';
 import Header from '../header/header';
 import Search from '../search/search';
 

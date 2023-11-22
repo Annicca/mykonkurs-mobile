@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
-import { options } from '../../src/utils/navigationOptions';
-import Competitions from '../../src/screens/Competitions';
+import { options } from '../../utils/navigationOptions';
+import Competitions from '../../screens/Competitions';
 import Header from '../header/header';
 import Search from '../search/search';
-import Competition from '../../src/screens/Competition';
+import Competition from '../../screens/Competition';
 
 export type CompetitionsParamList = {
     CompetitionScreen: undefined,

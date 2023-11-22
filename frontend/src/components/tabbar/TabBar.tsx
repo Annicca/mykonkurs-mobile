@@ -5,7 +5,7 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 import NavBarAccount, { AccountParamList } from "../navigation/navBarAccount";
 import NavBarGroups, { GroupsParamList } from "../navigation/navBarGroups";
 import NavBarCompetitions, { CompetitionsParamList } from "../navigation/navBarCompetitions";
-import { AccountIcon, GroupsIcon, CompetitionsIcon } from "../../public/icons";
+import { AccountIcon, GroupsIcon, CompetitionsIcon } from "../../../public/icons";
 
 export type TabParamList = {
     NavBarGroups: NavigatorScreenParams<GroupsParamList>,
