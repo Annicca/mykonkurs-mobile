@@ -1,15 +1,29 @@
 import { FC } from "react"
 import { View, StyleSheet, Image } from "react-native"
+import { useNavigation } from "@react-navigation/native"
+import { NavigationProp } from "@react-navigation/native"
 import Input from "../input/input"
 import Button from "../button/button"
+import { TabParamList } from "../tabbar/TabBar"
 import { SearchIcon } from "../../../public/icons"
+import { GroupsParamList } from "../navigation/navBarGroups"
+import { CompetitionsParamList } from "../navigation/navBarCompetitions"
 
-const Search: FC = () => {
+type SearchProps = {
+    url: string
+}
+
+const Search: FC<SearchProps> = ({url}) => {
+
+    const navigation = useNavigation();
+
+    const search = (value: string) =>{
+        navigation.setParams({url: url, city: value}) 
+    }
+
     return(
         <View style = {searchStyle.search}>
             <Button
-                // activity={() => {}}
-
                 buttonStyle={searchStyle.iconButton}
             >
                 <Image 
@@ -21,8 +35,10 @@ const Search: FC = () => {
 
             <Input 
                 placeholder="Введите город"
-                inputStyle = {searchStyle.input}
+                style = {searchStyle.input}
                 placeholderTextColor= '#888'
+                // defaultValue={valueSearch}
+                onChangeText={text =>search(text)}
             />
         </View>
     )
@@ -38,6 +54,7 @@ const searchStyle = StyleSheet.create({
         paddingLeft: 40,
         borderRadius: 10,
         backgroundColor: '#FFF',
+        color: '#888'
     },
     iconButton: {
         position: 'absolute',

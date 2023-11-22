@@ -1,18 +1,20 @@
 import { FC } from "react";
-import { TextInput } from "react-native";
+import { TextInput, TextInputProps } from "react-native";
 
-type TextInputProps = {
-    placeholder: string,
-    placeholderTextColor: string,
-    inputStyle: object
-}
-
-const Input: FC<TextInputProps> = ({placeholder, placeholderTextColor, inputStyle}) => {
+const Input: FC<TextInputProps> = ({placeholder, 
+    placeholderTextColor, 
+    style,
+    defaultValue,
+    value,
+    onChangeText}) => {
     return(
         <TextInput 
             placeholder = {placeholder}
-            style = {inputStyle} 
+            style = {style} 
             placeholderTextColor={placeholderTextColor}
+            defaultValue={defaultValue}
+            value={value}
+            onChangeText={onChangeText}
         />
     )
 }

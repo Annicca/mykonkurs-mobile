@@ -8,7 +8,10 @@ import Search from '../search/search';
 import Competition from '../../screens/Competition';
 
 export type CompetitionsParamList = {
-    CompetitionScreen: undefined,
+    CompetitionScreen: {
+        url: string,
+        city: string | undefined
+    },
     Competition: {idCompetition: number}
 }
 
@@ -20,10 +23,11 @@ const NavBarCompetitions: FC = () => {
             <Stack.Screen
                 name = 'CompetitionScreen'
                 component={Competitions}
-                options={{
+                initialParams={{url: 'competitions'}}
+                options={({route}) => ({
                     ...options,
-                    headerTitle: () => <Header><Search/></Header>
-                }}
+                    headerTitle: () => <Header><Search url = {route.params.url} /></Header>
+                })}
             />
             <Stack.Screen
                 name = 'Competition'

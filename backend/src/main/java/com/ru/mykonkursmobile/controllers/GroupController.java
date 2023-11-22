@@ -3,6 +3,7 @@ package com.ru.mykonkursmobile.controllers;
 import com.ru.mykonkursmobile.dto.GroupChangeDTO;
 import com.ru.mykonkursmobile.models.ArtGroup;
 import com.ru.mykonkursmobile.services.GroupService;
+import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,18 +24,22 @@ public class GroupController {
     @Autowired
     GroupService service;
 
+//    @GetMapping("/groups")
+//    @ResponseBody
+//    public Page<ArtGroup> GetAllGroups(@PageableDefault(size = 10)Pageable pageable){
+//
+//        return service.all(pageable);
+//    }
+
     @GetMapping("/groups")
     @ResponseBody
-    public Page<ArtGroup> GetAllGroups(@PageableDefault(size = 10)Pageable pageable){
+    public Page<ArtGroup> GetAllGroupsByCity(@RequestParam @Nullable String city, @PageableDefault(size = 51)Pageable pageable){
 
-        return service.all(pageable);
-    }
-
-    @GetMapping("/groups/search/{city}")
-    @ResponseBody
-    public Page<ArtGroup> GetAllGroupsByCity(@PathVariable String city, @PageableDefault(size = 51)Pageable pageable){
-
-        return service.getByCity(pageable,city);
+        if(city == null) {
+            return service.all(pageable);
+        } else {
+            return service.getByCity(pageable, city);
+        }
     }
 
     @GetMapping("/groups/{id}")

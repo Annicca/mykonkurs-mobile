@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { GroupType } from '../types/GroupType';
 import type { StackScreenProps } from '@react-navigation/stack';
 import { GroupsParamList } from '../components/navigation/navBarGroups';
@@ -7,14 +7,19 @@ import GroupItem from '../components/groupItem/GroupItem';
 import Button from '../components/button/button';
 import StatementButton from '../components/statementButton/StatementButton';
 import PaginationList from '../components/paginationList/PaginationList';
+import { generateFilterUrl } from '../utils/generateFilterUrl';
 
-const Groups: FC<StackScreenProps<GroupsParamList,'GroupsScreens'>> = ({navigation}) => {
+const Groups: FC<StackScreenProps<GroupsParamList,'GroupsScreens'>> = ({navigation, route}) => {
 
-    const url = 'groups';
+    const [url, setUrl] = useState(route.params.url)
+
+    useEffect(() =>{
+        setUrl(generateFilterUrl(route.params.url, route.params.city, undefined, undefined))
+    }, [route.params])
     
     const renderGroup: ListRenderItem<GroupType> = ({item}) => {
         return (
-            <Button activity={() => navigation.navigate('Group', {idGroup: item.idGroup})}>
+            <Button key = {item.idGroup} activity={() => navigation.navigate('Group', {idGroup: item.idGroup})}>
                 <GroupItem group={item} />
             </Button>
 

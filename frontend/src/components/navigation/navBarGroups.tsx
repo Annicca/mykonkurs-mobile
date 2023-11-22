@@ -8,7 +8,10 @@ import Header from '../header/header';
 import Search from '../search/search';
 
 export type GroupsParamList = {
-    GroupsScreens: undefined,
+    GroupsScreens: {
+        url: string,
+        city: string | undefined
+    },
     Group: {idGroup: number}
 }
 
@@ -22,10 +25,12 @@ const NavBarGroups: FC = () => {
             <Stack.Screen
                 name = 'GroupsScreens'
                 component={Groups}
-                options={{
+                initialParams={{url: 'groups'}}
+                
+                options={({route}) =>({
                     ...options,
-                    headerTitle: () => <Header><Search/></Header>
-                }}
+                    headerTitle: () => <Header><Search url = {route.params.url} /></Header>
+                })}
             />
             <Stack.Screen
                 name = 'Group'
