@@ -1,9 +1,9 @@
 import {FC, PropsWithChildren} from 'react';
-import { TouchableOpacity } from "react-native"
+import { StyleProp, TouchableOpacity, ViewStyle } from "react-native"
 
 type ButtonProps = {
     activity?: () => void,
-    buttonStyle?: object,
+    buttonStyle?: StyleProp<ViewStyle>,
 }
 
 const Button: FC<PropsWithChildren<ButtonProps>> = ({activity = () => {}, buttonStyle, children }) => {

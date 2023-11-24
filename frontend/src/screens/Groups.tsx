@@ -4,7 +4,7 @@ import type { StackScreenProps } from '@react-navigation/stack';
 import { GroupsParamList } from '../components/navigation/navBarGroups';
 import { ListRenderItem } from 'react-native';
 import GroupItem from '../components/groupItem/GroupItem';
-import Button from '../components/button/button';
+import Button from '../uikit/button/button';
 import StatementButton from '../components/statementButton/StatementButton';
 import PaginationList from '../components/paginationList/PaginationList';
 import { generateFilterUrl } from '../utils/generateFilterUrl';

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import { AccountIcon, EmailIcon, PhoneIcon } from '../../../public/icons';
-import TextIcon from '../textIcon/TextIcon';
+import TextIcon from '../../uikit/textIcon/TextIcon';
 import { UserRole } from '../../consts/const';
 import { getRoleUser } from '../../utils/getRoleUser';
 import { tileStyle } from '../../styles/title/TitleStyle';

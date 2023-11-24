@@ -1,25 +1,33 @@
 import { FC } from 'react';
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
-import { options } from '../../utils/navigationOptions';
+import { options, screenOptions } from '../../utils/navigationOptions';
 import Competitions from '../../screens/Competitions';
 import Header from '../header/header';
 import Search from '../search/search';
 import Competition from '../../screens/Competition';
+import StatementParticipantFrom from '../../screens/StatementParticipantFrom';
 
 export type CompetitionsParamList = {
     CompetitionScreen: {
         url: string,
         city: string | undefined
     },
-    Competition: {idCompetition: number}
+    Competition: {
+        idCompetition: number,
+        url?: string
+    },
+    StatementParticipantFrom: {
+        idCompetition: number,
+        url?: string
+    }
 }
 
 const Stack = createStackNavigator<CompetitionsParamList>();
 
 const NavBarCompetitions: FC = () => {
     return(
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen
                 name = 'CompetitionScreen'
                 component={Competitions}
@@ -31,8 +39,15 @@ const NavBarCompetitions: FC = () => {
             />
             <Stack.Screen
                 name = 'Competition'
+                initialParams={{url: 'competitions'}}
                 component={Competition}
                 options= {{...options, headerTitle: ''}}
+            />
+            <Stack.Screen
+                name = 'StatementParticipantFrom'
+                initialParams={{url: 'competitions'}}
+                component={StatementParticipantFrom}
+                options= {{...options, headerTitle: 'Подать заявку на участие'}}
             />
         </Stack.Navigator>
     )

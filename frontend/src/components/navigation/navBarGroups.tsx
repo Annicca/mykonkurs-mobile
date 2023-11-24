@@ -12,7 +12,10 @@ export type GroupsParamList = {
         url: string,
         city: string | undefined
     },
-    Group: {idGroup: number}
+    Group: {
+        url?: string,
+        idGroup: number
+    }
 }
 
 const Stack = createStackNavigator<GroupsParamList>();
@@ -26,7 +29,6 @@ const NavBarGroups: FC = () => {
                 name = 'GroupsScreens'
                 component={Groups}
                 initialParams={{url: 'groups'}}
-                
                 options={({route}) =>({
                     ...options,
                     headerTitle: () => <Header><Search url = {route.params.url} /></Header>
@@ -35,6 +37,7 @@ const NavBarGroups: FC = () => {
             <Stack.Screen
                 name = 'Group'
                 component={Group}
+                initialParams={{url: 'groups'}}
                 options= {{...options, headerTitle: ''}}
             />
         </Stack.Navigator>

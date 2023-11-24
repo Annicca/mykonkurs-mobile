@@ -3,7 +3,7 @@ import type { StackScreenProps } from '@react-navigation/stack';
 import { CompetitionsParamList } from '../components/navigation/navBarCompetitions';
 import { CompetitionType } from '../types/CompetitionType';
 import { ListRenderItem } from 'react-native';
-import Button from '../components/button/button';
+import Button from '../uikit/button/button';
 import CompetitionItem from '../components/competitionItem/CompetitionItem';
 import PaginationList from '../components/paginationList/PaginationList';
 import StatementButton from '../components/statementButton/StatementButton';

@@ -1,9 +1,8 @@
 import { FC } from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import { useNavigation, ParamListBase } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import Button from '../button/button';
-import LinearGradient from 'react-native-linear-gradient';
+import ButtonGradient from '../../uikit/buttonGradient/ButtonGradient';
 
 
 type StatementButtonProps = {
@@ -16,22 +15,15 @@ const StatementButton: FC<StatementButtonProps> = ({text, containerStyle}) => {
     const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
 
     return(
-        <View style = {containerStyle}>
-            <Button activity = {() => navigation.navigate('StatementForm')} buttonStyle={styleStatementButton.button}>
-                <LinearGradient 
-                    colors={['#FFE974', '#FFA15E']}
-                    start={{ x: 0, y: 1 }}
-                    end={{ x: 1, y: 0 }} 
-                    style = {styleStatementButton.gradient}
-                    >
-                    <Text style = {styleStatementButton.text}>{text}</Text>
-                </LinearGradient>
-            </Button>
-        </View>
+        <ButtonGradient 
+            action = {() => navigation.navigate('StatementForm')}
+            text={text} 
+            containerStyle = {containerStyle}
+            buttonStyle = {styleStatement.button}/>
     )
 }
 
-const styleStatementButton = StyleSheet.create({
+const styleStatement = StyleSheet.create({
     button: {
         width: 210,
         borderRadius: 20,
@@ -40,17 +32,6 @@ const styleStatementButton = StyleSheet.create({
         borderWidth: 1,
 
     },
-    gradient: {
-        paddingVertical: 9,
-        paddingHorizontal: 15,
-        borderRadius: 20,
-        alignItems: 'center',
-    },
-    text: {
-        fontFamily: 'Inter-Bold',
-        fontSize: 14,
-        color: '#000'
-    }
 })
 
 export default StatementButton;

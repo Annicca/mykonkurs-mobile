@@ -1,13 +1,9 @@
 import { FC } from "react"
 import { View, StyleSheet, Image } from "react-native"
 import { useNavigation } from "@react-navigation/native"
-import { NavigationProp } from "@react-navigation/native"
-import Input from "../input/input"
-import Button from "../button/button"
-import { TabParamList } from "../tabbar/TabBar"
+import Input from "../../uikit/input/input"
+import Button from "../../uikit/button/button"
 import { SearchIcon } from "../../../public/icons"
-import { GroupsParamList } from "../navigation/navBarGroups"
-import { CompetitionsParamList } from "../navigation/navBarCompetitions"
 
 type SearchProps = {
     url: string

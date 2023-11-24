@@ -25,6 +25,7 @@ const Account: FC = () => {
         phone: '88005553535'
     }
 
+
     return(
         <View>
             {User.role && <AccountInfo surname={User.surname} name = {User.name} patronimic={User.patronimic} role = {User.role} mail={User.mail} phone={User.phone} /> }

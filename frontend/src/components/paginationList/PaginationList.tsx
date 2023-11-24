@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
-import {View, Text, FlatList,  ListRenderItem, StyleSheet, Dimensions} from 'react-native';
-import usePaginationFetch from '../../hooks/usePaginationFetch';
-import { ReactElement } from 'react';
-import Spinner from '../spinner/Spinner';
+import { useEffect, ReactElement } from 'react';
 import { useRoute } from '@react-navigation/native';
+import usePaginationFetch from '../../hooks/usePaginationFetch';
+import {View, Text, FlatList,  ListRenderItem, StyleSheet} from 'react-native';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import Spinner from '../spinner/Spinner';
+import { accentTextStyle } from '../../styles/accentText/AccentText';
+
 
 
 type PaginationListProps<T> = {
@@ -32,19 +34,18 @@ export default function PaginationList<T>({dataFetchUrl, renderItem, headerCompo
     
     return(
         <View>
-            <View style={listStyle.container}>{headerComponent}</View>
             {
-                error ? <Text>Произошла ошибка</Text> :
+                error ? <View style={listStyle.container}><ErrorMessage message='Произошла ошибка' /></View> :
                 !loading && data.length === 0 ?
-                <Text style = {listStyle.text}>{emtytext}</Text> :
+                <View style={listStyle.container}><Text style = {accentTextStyle}>{emtytext}</Text></View> :
                 <FlatList 
                 data={data}
+                ListHeaderComponent={headerComponent}
                 removeClippedSubviews = {true}
                 initialNumToRender = {10}
                 renderItem={renderItem }
                 ListFooterComponent={loading && <Spinner />}
                 contentContainerStyle = {containerStyle ? containerStyle : listStyle.list}
-                // ListEmptyComponent={() => }
                 onEndReachedThreshold={0.5}
                 onEndReached={loadData}
                 />
@@ -58,13 +59,6 @@ const listStyle = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 40,
         rowGap: 30,
-    },
-    text: {
-        paddingTop: 40,
-        paddingHorizontal: 20,
-        color: '#FF6B00',
-        fontSize: 16,
-        fontFamily: 'Inter-Bold'
     },
     container: {
         paddingTop: 40,
