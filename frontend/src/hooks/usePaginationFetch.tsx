@@ -10,11 +10,17 @@ function usePaginationFetch<T>(url: string): {data: T[], loading: any, error: an
   useEffect(() => {
       setLoading(true)
       setError(null);
-      instance.get(`${url}?page=${page}`)
+      let isPaging = page !== 0;
+      url = url.includes('?') ? url : url + '?';
+      instance.get(`${url}page=${page}`)
       .then(res => {
           setLoading(false);
-          res.data.content &&
-            setData([...data, ...res.data.content])
+          if (isPaging) {
+            res.data.content &&
+              setData([...data, ...res.data.content])
+          } else {
+            setData(res.data.content)
+          }
       })
       .catch(err => {
           setLoading(false)
