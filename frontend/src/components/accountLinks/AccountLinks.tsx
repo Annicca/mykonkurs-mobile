@@ -90,7 +90,7 @@ const AccountLinks: FC<AccountLinkspops> = ({role}) => {
         )
     else if(!role)
         return (
-            <View style = {[mainContainerStyle, styleAccountLinks.container]}>
+            <View style = {[styleAccountLinks.center]}>
                 <Button activity={() => toNavigate('Login')} buttonStyle={styleAccountLinks.buttonLogin}>
                     <Text style = {[textStyle, styleAccountLinks.textButtonLogin]}>Вход</Text>
                 </Button>
@@ -107,6 +107,13 @@ const styleAccountLinks = StyleSheet.create({
         marginTop: 30,
         rowGap:15,
         marginHorizontal: 20,
+    },
+    center: {
+        height: '90%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        rowGap: 20
+        
     },
     containerLogin: {
         marginTop: '50%',

@@ -14,12 +14,12 @@ export type CompetitionsParamList = {
         city: string | undefined
     },
     Competition: {
-        idCompetition: number,
         url?: string
+        idCompetition: number,
     },
     StatementParticipantFrom: {
-        idCompetition: number,
         url?: string
+        idCompetition: number,
     }
 }
 

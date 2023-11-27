@@ -29,6 +29,7 @@ public class CompetitionFilter implements Specification<Competition> {
         if (StringUtils.isNotBlank(city))
         {
             predicates.add(criteriaBuilder.like(root.get("cityCompetition").get("city"), city + "%"));
+
         }
         if(dateStart != null){
             predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("dateStart"),dateStart));
@@ -60,7 +61,7 @@ public class CompetitionFilter implements Specification<Competition> {
         return city;
     }
 
-    public void setCity(String cityCompetition) {
+    public void setCity(String city) {
         this.city = city;
     }
 

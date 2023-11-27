@@ -31,7 +31,7 @@ const NavBarGroups: FC = () => {
                 initialParams={{url: 'groups'}}
                 options={({route}) =>({
                     ...options,
-                    headerTitle: () => <Header><Search url = {route.params.url} /></Header>
+                    headerTitle: () => <Header><Search url = {route.params.url}  /></Header>
                 })}
             />
             <Stack.Screen

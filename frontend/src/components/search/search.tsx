@@ -4,20 +4,26 @@ import { useNavigation } from "@react-navigation/native"
 import Input from "../../uikit/input/input"
 import Button from "../../uikit/button/button"
 import { SearchIcon } from "../../../public/icons"
+import { StackNavigationProp } from "@react-navigation/stack"
+import { CompetitionsParamList } from "../navigation/navBarCompetitions"
+import { GroupsParamList } from "../navigation/navBarGroups"
 
 type SearchProps = {
     url: string
 }
 
+type SearchScreenNavigationProp = StackNavigationProp<CompetitionsParamList> | StackNavigationProp<GroupsParamList>
+
 const Search: FC<SearchProps> = ({url}) => {
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<SearchScreenNavigationProp>();
 
-    const search = (value: string) =>{
+    const search = (value: string) => {
         navigation.setParams({url: url, city: value}) 
+        
     }
 
-    return(
+    return (
         <View style = {searchStyle.search}>
             <Button
                 buttonStyle={searchStyle.iconButton}
@@ -33,8 +39,7 @@ const Search: FC<SearchProps> = ({url}) => {
                 placeholder="Введите город"
                 style = {searchStyle.input}
                 placeholderTextColor= '#888'
-                // defaultValue={valueSearch}
-                onChangeText={text =>search(text)}
+                onChangeText={text => search(text)}
             />
         </View>
     )

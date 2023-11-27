@@ -10,9 +10,10 @@ import MyCompetitions from '../../screens/MyCompetitions';
 import StatementForm from '../../screens/StatementForm';
 import Login from '../../screens/Login';
 import Registry from '../../screens/Registry';
+import { UserType } from '../../types/UserType';
 
 export type AccountParamList = {
-    Account: undefined,
+    Account: {user?: UserType | null},
     MyStatements: undefined,
     StatementParticipant: undefined,
     MyGroups: undefined,
@@ -84,7 +85,7 @@ const NavBarAccount: FC = () => {
                 component={Login}
                 options={{
                     ...options,
-                    headerTitle: 'Вход',
+                    headerShown: false
                 }}
             />
             <Stack.Screen
@@ -92,7 +93,7 @@ const NavBarAccount: FC = () => {
                 component={Registry}
                 options={{
                     ...options,
-                    headerTitle: 'Регистрация',
+                    headerShown: false
                 }}
             />
         </Stack.Navigator>

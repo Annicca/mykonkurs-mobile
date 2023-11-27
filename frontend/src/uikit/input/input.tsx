@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { TextInput, TextInputProps } from "react-native";
 
-const Input: FC<TextInputProps> = ({placeholder, 
+const Input: FC<TextInputProps> = ({
+    placeholder, 
     placeholderTextColor, 
     style,
     defaultValue,
