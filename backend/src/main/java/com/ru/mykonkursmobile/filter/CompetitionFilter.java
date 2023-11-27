@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class CompetitionFilter implements Specification<Competition> {
 
-    private String city;
+    private String cityCompetition;
     private Date dateStart;
     private Date dateFinish;
     private boolean isStatusCompetition;
@@ -26,10 +26,9 @@ public class CompetitionFilter implements Specification<Competition> {
 
         ArrayList<Predicate> predicates = new ArrayList<>();
 
-        if (StringUtils.isNotBlank(city))
+        if (StringUtils.isNotBlank(cityCompetition))
         {
-            predicates.add(criteriaBuilder.like(root.get("cityCompetition").get("city"), city + "%"));
-
+            predicates.add(criteriaBuilder.like(root.get("cityCompetition").get("city"), cityCompetition + "%"));
         }
         if(dateStart != null){
             predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("dateStart"),dateStart));
@@ -57,12 +56,12 @@ public class CompetitionFilter implements Specification<Competition> {
         return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
     }
 
-    public String getCity() {
-        return city;
+    public String getCityCompetition() {
+        return cityCompetition;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCityCompetition(String cityCompetition) {
+        this.cityCompetition = cityCompetition;
     }
 
     public Date getDateStart() {
