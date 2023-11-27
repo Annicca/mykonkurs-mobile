@@ -1,1 +1,0 @@
-export const PhotoImage = require('./images/photo.png')

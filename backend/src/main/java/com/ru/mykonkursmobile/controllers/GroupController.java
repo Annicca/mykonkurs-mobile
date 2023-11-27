@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000"})
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api")
 public class GroupController {
 
@@ -25,7 +25,7 @@ public class GroupController {
 
     @GetMapping("/groups")
     @ResponseBody
-    public Page<ArtGroup> GetAllGroups(@PageableDefault(size = 10)Pageable pageable){
+    public Page<ArtGroup> GetAllGroups(@PageableDefault(size = 51)Pageable pageable){
 
         return service.all(pageable);
     }
