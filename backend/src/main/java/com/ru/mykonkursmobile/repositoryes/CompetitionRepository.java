@@ -1,6 +1,5 @@
 package com.ru.mykonkursmobile.repositoryes;
 
-import com.ru.mykonkursmobile.filter.CompetitionFilter;
 import com.ru.mykonkursmobile.models.Competition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +17,7 @@ import java.util.List;
 public interface CompetitionRepository extends JpaRepository<Competition,Integer>, JpaSpecificationExecutor<Competition> {
 
 //    Page<Competition> findAllByOrderByIdCompetitionDesc(Pageable pageable);
+
     @Query(value = "select * from competition where status_competition != 'CANCELLED' ", nativeQuery = true)
     List<Competition> findAllNotCancel();
 
