@@ -5,18 +5,19 @@
  * @format
  */
 
-
 import {NavigationContainer} from '@react-navigation/native'
-import TabBar from './components/tabbar/TabBar';
+import { StatusBar } from 'react-native';
+import TabBar from './src/components/tabbar/TabBar';
 
 function App(): JSX.Element {
 
   return (
     <NavigationContainer>
+        <StatusBar 
+        backgroundColor="#FFD700" />
         <TabBar />
     </NavigationContainer>
   );
 }
-
 
 export default App;

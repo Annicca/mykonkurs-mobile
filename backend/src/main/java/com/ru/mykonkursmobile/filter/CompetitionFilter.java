@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class CompetitionFilter implements Specification<Competition> {
 
-    private String cityCompetition;
+    private String city;
     private Date dateStart;
     private Date dateFinish;
     private boolean isStatusCompetition;
@@ -26,9 +26,10 @@ public class CompetitionFilter implements Specification<Competition> {
 
         ArrayList<Predicate> predicates = new ArrayList<>();
 
-        if (StringUtils.isNotBlank(cityCompetition))
+        if (StringUtils.isNotBlank(city))
         {
-            predicates.add(criteriaBuilder.like(root.get("cityCompetition").get("city"), cityCompetition + "%"));
+            predicates.add(criteriaBuilder.like(root.get("cityCompetition").get("city"), city + "%"));
+
         }
         if(dateStart != null){
             predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("dateStart"),dateStart));
@@ -39,24 +40,29 @@ public class CompetitionFilter implements Specification<Competition> {
         if(isStatusCompetition){
             predicates.add(criteriaBuilder.equal(root.get("statusCompetition"),StatusCompetition.CREATED));
         }
+
+        predicates.add(criteriaBuilder.notEqual(root.get("statusCompetition"),StatusCompetition.FINISHED));
+        predicates.add(criteriaBuilder.notEqual(root.get("statusCompetition"),StatusCompetition.CANCELLED));
+
         if (StringUtils.isNotBlank(typeSort)) {
             if (typeSort.equals("DESC")) {
                 query.orderBy(criteriaBuilder.desc(root.get("dateStart")));
             } else if (typeSort.equals("ASC")) {
                 query.orderBy(criteriaBuilder.asc(root.get("dateStart")));
             }
-        }else {
+        } else {
             query.orderBy(criteriaBuilder.desc(root.get("dateStart")));
         }
-        return predicates.size() <= 0 ? null : criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+
+        return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
     }
 
-    public String getCityCompetition() {
-        return cityCompetition;
+    public String getCity() {
+        return city;
     }
 
-    public void setCityCompetition(String cityCompetition) {
-        this.cityCompetition = cityCompetition;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Date getDateStart() {
