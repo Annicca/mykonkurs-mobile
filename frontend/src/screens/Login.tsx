@@ -5,12 +5,13 @@ import { AccountParamList } from '../components/navigation/navBarAccount';
 import { StackScreenProps } from '@react-navigation/stack';
 import LinearGradient from 'react-native-linear-gradient';
 import { Text, View } from "react-native"
-import Button from '../uikit/button/button';
+import ButtonWithText from '../uikit/buttonWithText/ButtonWithText';
 import InputControl from '../uikit/input/inputControl';
 import { mainContainerStyle } from '../styles/containers/MainContainer';
 import { authStyle } from '../styles/auth/authStyle';
 import { yelowButtonStyle } from '../styles/yellowButton/yellowButton';
 import { setData } from '../utils/asyncStorage/setData';
+import { accentTextStyle } from '../styles/accentText/AccentText';
 
 const Login: FC<StackScreenProps<AccountParamList, 'Login'>> = ({navigation}) => {
 
@@ -40,14 +41,10 @@ const Login: FC<StackScreenProps<AccountParamList, 'Login'>> = ({navigation}) =>
             end={{ x: 0, y: 1 }} 
             style={authStyle.gradient}
             >
-                <Button activity={() => navigation.goBack()} buttonStyle = {authStyle.backButton}>
-                    <Text style={authStyle.backButtonText}>В аккаунт</Text>
-                </Button>
+                <ButtonWithText activity={() => navigation.goBack()} text = 'В кабинет' buttonContainerStyle={authStyle.backButton} textStyle = {authStyle.backButtonText} />
                 <View style = {[mainContainerStyle, authStyle.container]}>
                     <Text style = {authStyle.title}>Войти</Text>
-                    <Button activity={() => navigation.navigate('Registry')}>
-                        <Text style = {authStyle.link}>Ещё не зарегистрированы?</Text>
-                    </Button>
+                    <ButtonWithText activity={() => navigation.navigate('Registry')} text = 'Ещё не зарегистрированы?' textStyle = {authStyle.link} />
                     <View style = {authStyle.form}>
                         <InputControl 
                             placeholder='Логин'
@@ -77,9 +74,8 @@ const Login: FC<StackScreenProps<AccountParamList, 'Login'>> = ({navigation}) =>
                             }}
                             error = {errors.password?.message}
                         />
-                        <Button activity={onSignIn} buttonStyle = {yelowButtonStyle.button} disabled = {isValid}>
-                            <Text style = {authStyle.textButton}>Войти</Text>
-                        </Button>
+                        {error && <Text style={[accentTextStyle, authStyle.errorText]}>{error}</Text>}
+                        <ButtonWithText activity={onSignIn} text = 'Войти' disabled = {!isValid} buttonContainerStyle={yelowButtonStyle.button} textStyle = {authStyle.textButton} />
                     </View>
                 </View>
             </LinearGradient>

@@ -19,7 +19,7 @@ const Account: FC = () => {
         return(
             <View>
                 {user?.role && <AccountInfo setUser = {setUser} surname={user?.surnameUser} name = {user?.nameUser} patronimic={user?.patronimycUser} role = {user.role} mail={user.mailUser} phone={user.phoneUser} /> }
-                <AccountLinks role={user?.role} />
+                <AccountLinks role={user?.role} idUser={user?.idUser}/>
                 {user && user.role !== UserRole.ADMIN && 
                     <StatementButton 
                         text={UserRole.ORGANIZER ? '+ Разместить конкурс' : UserRole.DIRECTOR ? '+ Разместить коллектив' : UserRole.CLIENT && 'Подать заявку' } 

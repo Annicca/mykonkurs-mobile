@@ -14,7 +14,7 @@ import { UserType } from '../../types/UserType';
 
 export type AccountParamList = {
     Account: {user?: UserType | null},
-    MyStatements: undefined,
+    MyStatements: {idUser: number},
     StatementParticipant: undefined,
     MyGroups: undefined,
     MyCompetitions: undefined,

@@ -11,7 +11,7 @@ import { accentTextStyle } from '../../styles/accentText/AccentText';
 type PaginationListProps<T> = {
     dataFetchUrl: string,
     renderItem: ListRenderItem<T>,
-    headerComponent: ReactElement, 
+    headerComponent?: ReactElement, 
     emtytext: string,
     containerStyle?: object,
 }
