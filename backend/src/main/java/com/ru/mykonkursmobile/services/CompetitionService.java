@@ -135,8 +135,8 @@ public class CompetitionService implements ICompetitionService {
     }
 
     @Override
-    public List<Competition> getCompetitionByGroup(Integer idGroup){
-        return repository.findByGroup(idGroup);
+    public Page<Competition> getCompetitionByGroup(Integer idGroup, Pageable pageable){
+        return repository.findByGroup(idGroup, pageable);
     }
 
     @Override

@@ -13,3 +13,5 @@ export const ArrowRight = require('./icons/arrow-right.png');
 export const ArrowLeft = require('./icons/arrow-left.png'); 
 export const KeyIcon = require('./icons/key.png')
 export const UserAdmin = require('./icons/user_edit.png')
+export const EditIcon = require('./icons/edit.png')
+export const TrashIcon = require('./icons/trash.png')

@@ -19,10 +19,10 @@ const DescriptionItem: FC<DescriptionItemProps> = ({description}) => {
     return(
         <View>
             <Text style = {textStyle}>
-                {isUnwrap ? description : `${description.slice(0,100)}...`}
+                {isUnwrap || description.length < 100 ? description : `${description.slice(0,100)}...`}
                 
             </Text>
-            <ButtonWithText activity={handleUnWrap} text={isUnwrap ? 'Скрыть' :'Развернуть всё'} textStyle={accentTextStyle} />
+            {description.length > 100 && <ButtonWithText activity={handleUnWrap} text={isUnwrap ? 'Скрыть' :'Развернуть всё'} textStyle={accentTextStyle} />}
         </View>
         
     )

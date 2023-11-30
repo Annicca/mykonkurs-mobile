@@ -28,6 +28,6 @@ public interface CompetitionRepository extends JpaRepository<Competition,Integer
     List<Competition> findByGroupLimit(@Param("idGroup") Integer idGroup);
 
     @Query(value = "select * from competition c WHERE c.id_competition in (select p.id_competition from participant p where p.id_group = :idGroup)", nativeQuery = true)
-    List<Competition> findByGroup(@Param("idGroup") Integer idGroup);
+    Page<Competition> findByGroup(@Param("idGroup") Integer idGroup, Pageable pageable);
 
 }

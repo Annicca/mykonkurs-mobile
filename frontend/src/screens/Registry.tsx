@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useUserContext } from '../context/UserContext';
 import { instance } from '../utils/instance';
 import { View, Text, Image, StyleSheet } from "react-native"
 import { StackScreenProps } from '@react-navigation/stack';
@@ -18,6 +19,8 @@ import { setData } from '../utils/asyncStorage/setData';
 import { accentTextStyle } from '../styles/accentText/AccentText';
 
 const Registry: FC<StackScreenProps<AccountParamList, 'Registry'>> = ({navigation}) => {
+
+    const {context, setContext} = useUserContext()
 
     const {control , handleSubmit, trigger, formState: {errors, isValid}} = useForm({mode: "onChange", reValidateMode: 'onSubmit'})
 
@@ -40,12 +43,12 @@ const Registry: FC<StackScreenProps<AccountParamList, 'Registry'>> = ({navigatio
     }
 
     const onRegistry = handleSubmit(async (data) => {
-        console.log(data)
         await instance.post('login', JSON.stringify(data))
         .then((response) => {
             setData('user', JSON.stringify(response.data.user))
             setData('jwt', response.data.token)
-            navigation.navigate('Account', ({user: response.data.user}))
+            setContext({user: response.data.user, jwt: response.data.token})
+            navigation.navigate('Account')
         })
         .catch((error) =>{
             setError('Вы ввели неправильно логин или пароль')

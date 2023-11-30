@@ -12,20 +12,23 @@ import { authStyle } from '../styles/auth/authStyle';
 import { yelowButtonStyle } from '../styles/yellowButton/yellowButton';
 import { setData } from '../utils/asyncStorage/setData';
 import { accentTextStyle } from '../styles/accentText/AccentText';
+import { useUserContext } from '../context/UserContext';
 
 const Login: FC<StackScreenProps<AccountParamList, 'Login'>> = ({navigation}) => {
+
+    const {context, setContext} = useUserContext()
 
     const {control , handleSubmit, formState: {errors, isValid}} = useForm({mode: "onChange"})
     
     const [error, setError] = useState<string>('');
 
     const onSignIn = handleSubmit(async (data) => {
-        console.log(data)
         await instance.post('login', JSON.stringify(data))
         .then((response) => {
             setData('user', JSON.stringify(response.data.user))
             setData('jwt', response.data.token)
-            navigation.navigate('Account', ({user: response.data.user}))
+            setContext({user: response.data.user, jwt: response.data.token})
+            navigation.navigate('Account')
         })
         .catch((error) =>{
             setError('Вы ввели неправильно логин или пароль')

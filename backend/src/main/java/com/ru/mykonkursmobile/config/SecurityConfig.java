@@ -36,8 +36,9 @@ public class SecurityConfig{
                 .authorizeHttpRequests( request -> request
                         .requestMatchers("/api/login", "/api/register").permitAll()
                         .requestMatchers(HttpMethod.POST,  "/api/statements/**").hasAnyAuthority(Role.DIRECTOR.name(), Role.ORGANIZER.name())
-                        .requestMatchers(HttpMethod.GET,"/api/competitions/**", "/api/groups/**", "/api/cities", "/api/mystatements/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/competitions/**", "/api/groups/**", "/api/cities").permitAll()
 
+                        .requestMatchers(HttpMethod.GET, "/api/mystatements/**").authenticated()
                         .requestMatchers(HttpMethod.GET,"/api/statements/**").hasAuthority(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.PUT,"/api/statements/**").hasAuthority(Role.ADMIN.name())
 
@@ -50,6 +51,7 @@ public class SecurityConfig{
 
                         .requestMatchers(HttpMethod.GET, "/api/mygroups/**", "/api/usergroups/**").hasAuthority(Role.DIRECTOR.name())
                         .requestMatchers(HttpMethod.PUT, "/api/groups").hasAnyAuthority(Role.DIRECTOR.name(), Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/groups/img/**").hasAnyAuthority(Role.DIRECTOR.name(), Role.ADMIN.name())
                         .requestMatchers(HttpMethod.DELETE, "/api/groups").hasAuthority(Role.DIRECTOR.name())
 
                         .anyRequest().permitAll()

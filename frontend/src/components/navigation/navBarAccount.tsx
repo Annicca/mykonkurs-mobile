@@ -10,14 +10,14 @@ import MyCompetitions from '../../screens/MyCompetitions';
 import StatementForm from '../../screens/StatementForm';
 import Login from '../../screens/Login';
 import Registry from '../../screens/Registry';
-import { UserType } from '../../types/UserType';
 
 export type AccountParamList = {
-    Account: {user?: UserType | null},
-    MyStatements: {idUser: number},
+    Account: undefined,
+    MyStatements: undefined,
     StatementParticipant: undefined,
     MyGroups: undefined,
-    MyCompetitions: undefined,
+    MyCompetitions: {urlPoint?: string},
+    CompetitionsGroup: {urlPoint?: string},
     StatementForm: undefined,
     Login: undefined,
     Registry: undefined
@@ -67,6 +67,16 @@ const NavBarAccount: FC = () => {
             <Stack.Screen
                 name = 'MyCompetitions'
                 component={MyCompetitions}
+                initialParams={{urlPoint: 'mycompetitions'}}
+                options={{
+                    ...options,
+                    headerTitle: 'Мои конкурсы',
+                }}
+            />
+            <Stack.Screen
+                name = 'CompetitionsGroup'
+                component={MyCompetitions}
+                initialParams={{urlPoint: 'mygroups/competitions'}}
                 options={{
                     ...options,
                     headerTitle: 'Мои конкурсы',

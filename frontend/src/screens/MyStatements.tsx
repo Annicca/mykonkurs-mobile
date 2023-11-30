@@ -1,4 +1,6 @@
 import { FC, useEffect, useState } from 'react';
+import { useUserContext } from '../context/UserContext';
+import usePaginationFetch from '../hooks/usePaginationFetch';
 import { StatementType } from '../types/StatementType';
 import { StackScreenProps } from '@react-navigation/stack';
 import { Text} from 'react-native';
@@ -9,26 +11,30 @@ import { accentTextStyle } from '../styles/accentText/AccentText';
 import StatementItem from '../components/statmentItem/StatementItem';
 
 
-const MyStatements: FC<StackScreenProps<AccountParamList, 'MyStatements'>> = ({route}) => {
+const MyStatements: FC<StackScreenProps<AccountParamList, 'MyStatements'>> = ({navigation}) => {
 
-    const [url, setUrl] = useState<string>('')
+    const {user, jwt: token} = useUserContext().context;
+
+    const [url, setUrl] = useState<string>(`mystatements/${user?.idUser}`)
+
+    const statementData = usePaginationFetch<StatementType>(url, token)
 
     useEffect(() => {
-        setUrl(`mystatements/${route.params.idUser}`)
-    }, [route.params])
+        setUrl(`mystatements/${user?.idUser}`)
+    }, [user])
 
-    const renderCompetition: ListRenderItem<StatementType> = ({item}) => {
+    const renderStatement: ListRenderItem<StatementType> = ({item}) => {
         return (
             <StatementItem statement={item} />
         );
     };
 
-    if(!url) return <Text style={accentTextStyle}>Пожалуйста авторизируйтесь</Text>
+    if(!user) return <Text style={accentTextStyle}>Пожалуйста авторизируйтесь</Text>
     else 
         return(
             <PaginationList 
-                dataFetchUrl = {url}
-                renderItem={renderCompetition}
+                stateList={statementData}
+                renderItem={renderStatement}
                 emtytext='У вас ещё нет заявок'
             />
         )

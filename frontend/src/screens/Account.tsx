@@ -4,29 +4,25 @@ import AccountInfo from '../components/accountInfo/AccountInfo';
 import AccountLinks from '../components/accountLinks/AccountLinks';
 import StatementButton from '../components/statementButton/StatementButton';
 import { UserRole } from '../consts/const';
-import { useUser } from '../hooks/useUser';
-import Spinner from '../components/spinner/Spinner';
+import { useUserContext } from '../context/UserContext';
 
 const Account: FC = () => {
 
-    const {loading, user, setUser} = useUser()
+    const user = useUserContext().context?.user;
 
-    if (loading) {
-        return (
-            <View><Spinner /></View>
-        )
-    } else {
-        return(
-            <View>
-                {user?.role && <AccountInfo setUser = {setUser} surname={user?.surnameUser} name = {user?.nameUser} patronimic={user?.patronimycUser} role = {user.role} mail={user.mailUser} phone={user.phoneUser} /> }
-                <AccountLinks role={user?.role} idUser={user?.idUser}/>
-                {user && user.role !== UserRole.ADMIN && 
-                    <StatementButton 
-                        text={UserRole.ORGANIZER ? '+ Разместить конкурс' : UserRole.DIRECTOR ? '+ Разместить коллектив' : UserRole.CLIENT && 'Подать заявку' } 
-                        containerStyle={styleAccount.containerButton}/>}
-            </View>
-        )
-    }
+    return(
+        <View>
+            {user?.role && <AccountInfo surname={user?.surnameUser} name = {user?.nameUser} patronimic={user?.patronimycUser} role = {user.role} mail={user.mailUser} phone={user.phoneUser} /> }
+            <AccountLinks role={user?.role} idUser={user?.idUser}/>
+            {user && user.role !== UserRole.ADMIN && 
+                <StatementButton 
+                    text={ 
+                        user.role === UserRole.ORGANIZER ? '+ Разместить конкурс' :
+                        user.role === UserRole.DIRECTOR ? '+ Разместить коллектив' : 
+                        user.role === UserRole.CLIENT ? 'Подать заявку' : 'Подать заявку' } 
+                    containerStyle={styleAccount.containerButton}/>}
+        </View>
+    )
 }
 
 const styleAccount = StyleSheet.create({

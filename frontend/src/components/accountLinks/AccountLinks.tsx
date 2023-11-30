@@ -68,7 +68,7 @@ const AccountLinks: FC<AccountLinkspops> = ({role, idUser}) => {
                         transition = {true} 
                     />
                 </Button>
-                <Button activity={() => toNavigate('MyGroups')}>
+                <Button activity={() => toNavigate('MyGroups', {idUser: idUser})}>
                     <TextIcon 
                         iconName={GroupsIcon} 
                         text = 'Мои коллективы' 

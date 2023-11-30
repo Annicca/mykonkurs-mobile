@@ -10,9 +10,9 @@ import { mainContainerStyle } from '../../styles/containers/MainContainer';
 import Button from '../../uikit/button/button';
 import { removeData } from '../../utils/asyncStorage/removeData';
 import { UserType } from '../../types/UserType';
+import { useUserContext } from '../../context/UserContext';
 
 type AccountInfoProps = {
-    setUser: (user: UserType | null) => void,
     surname: string,
     name: string,
     patronimic: string,
@@ -21,11 +21,14 @@ type AccountInfoProps = {
     phone: string
 }
 
-const AccountInfo: FC<AccountInfoProps> = ({setUser, surname, name, patronimic, role, mail, phone}) => {
+const AccountInfo: FC<AccountInfoProps> = ({ surname, name, patronimic, role, mail, phone}) => {
+
+    const {context, setContext} = useUserContext();
     
     const exit = () => {
         removeData('user')
-        setUser(null)
+        removeData('jwt')
+        setContext({user: null, jwt: null})
     }
     
     return(
