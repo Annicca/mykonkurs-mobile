@@ -100,9 +100,9 @@ public interface ICompetitionService{
     /**
      * Method for getting competitions in which the group takes part
      * @param idGroup - id group
-     * @return List of competitions in which the group with this id takes part
+     * @return Page of competitions in which the group with this id takes part
      */
-    List<Competition> getCompetitionByGroup(Integer idGroup);
+    Page<Competition> getCompetitionByGroup(Integer idGroup, Pageable pageable);
 
     /**
      * Method called once a day to change the status of competitions

@@ -5,26 +5,52 @@ import { useNavigation, ParamListBase } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Button from "../../uikit/button/button";
 import TextIcon from "../../uikit/textIcon/TextIcon";
-import { StatementIcon, CompetitionsIcon, GroupsIcon } from "../../../public/icons";
+import { StatementIcon, CompetitionsIcon, GroupsIcon, UserAdmin } from "../../../public/icons";
 import { mainContainerStyle } from "../../styles/containers/MainContainer";
 import { textStyle } from "../../styles/text/textStyle";
 
 type AccountLinkspops = {
-    role?: UserRole
+    role?: UserRole,
+    idUser?: number
 }
 
-const AccountLinks: FC<AccountLinkspops> = ({role}) => {
+const AccountLinks: FC<AccountLinkspops> = ({role, idUser}) => {
 
     const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
 
-    const toNavigate = (nameScreen: string): void => {
-        navigation.navigate(nameScreen)
+    const toNavigate = (nameScreen: string, options?: object | undefined): void => {
+        navigation.navigate(nameScreen, options)
     }
 
-    if(role && role === UserRole.DIRECTOR)
+    if(!role) {
+        return (
+            <View style = {[styleAccountLinks.center]}>
+                <Button activity={() => toNavigate('Login')} buttonStyle={styleAccountLinks.buttonLogin}>
+                    <Text style = {[textStyle, styleAccountLinks.textButtonLogin]}>Вход</Text>
+                </Button>
+                <Button activity={() => toNavigate('Registry')} buttonStyle={styleAccountLinks.buttonLogin}>
+                    <Text style = {[textStyle, styleAccountLinks.textButtonLogin]}>Регистрация</Text>
+                </Button>
+            </View>
+        )
+    } else if(role && role === UserRole.ADMIN) {
         return (
             <View style = {[mainContainerStyle, styleAccountLinks.container]}>
-                <Button activity={() => toNavigate('MyStatements')}>
+                <Button >
+                    <TextIcon 
+                        iconName={UserAdmin} 
+                        text = 'Пользователи'
+                        styleIcon = {{width: 20, height: 20}}
+                        transition = {true} 
+                        colorIcon="#000"
+                    />
+                </Button>
+            </View>
+        )
+    } else if(role && role === UserRole.DIRECTOR)
+        return (
+            <View style = {[mainContainerStyle, styleAccountLinks.container]}>
+                <Button activity={() => toNavigate('MyStatements', {idUser: idUser})}>
                     <TextIcon 
                         iconName={StatementIcon} 
                         text = 'Мои заявки'
@@ -42,7 +68,7 @@ const AccountLinks: FC<AccountLinkspops> = ({role}) => {
                         transition = {true} 
                     />
                 </Button>
-                <Button activity={() => toNavigate('MyGroups')}>
+                <Button activity={() => toNavigate('MyGroups', {idUser: idUser})}>
                     <TextIcon 
                         iconName={GroupsIcon} 
                         text = 'Мои коллективы' 
@@ -85,17 +111,6 @@ const AccountLinks: FC<AccountLinkspops> = ({role}) => {
                         styleIcon = {{width: 20, height: 20}}
                         transition = {true} 
                     />
-                </Button>
-            </View>
-        )
-    else if(!role)
-        return (
-            <View style = {[styleAccountLinks.center]}>
-                <Button activity={() => toNavigate('Login')} buttonStyle={styleAccountLinks.buttonLogin}>
-                    <Text style = {[textStyle, styleAccountLinks.textButtonLogin]}>Вход</Text>
-                </Button>
-                <Button activity={() => toNavigate('Registry')} buttonStyle={styleAccountLinks.buttonLogin}>
-                    <Text style = {[textStyle, styleAccountLinks.textButtonLogin]}>Регистрация</Text>
                 </Button>
             </View>
         )

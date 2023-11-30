@@ -72,8 +72,8 @@ public class CompetitionController {
 
     @GetMapping("mygroups/competitions/{id}")
     @ResponseBody
-    public List<Competition> GetMyGroupsCompetitions(@PathVariable Integer id){
-        return service.getCompetitionByGroup(id);
+    public Page<Competition> GetMyGroupsCompetitions(@PathVariable Integer id, @PageableDefault(size = 10)Pageable pageable){
+        return service.getCompetitionByGroup(id ,pageable);
     }
 
 }

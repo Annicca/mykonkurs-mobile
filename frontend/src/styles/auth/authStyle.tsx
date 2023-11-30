@@ -10,6 +10,7 @@ type Style = {
     textButton: TextStyle;
     backButton: ViewStyle;
     backButtonText: TextStyle;
+    errorText: TextStyle,
 };
 
 export const authStyle = StyleSheet.create<Style>({
@@ -58,5 +59,8 @@ export const authStyle = StyleSheet.create<Style>({
         fontFamily: 'Inter-Medium',
         fontSize: 14,
         color: '#000'
+    },
+    errorText: {
+        width: '100%'
     }
 })

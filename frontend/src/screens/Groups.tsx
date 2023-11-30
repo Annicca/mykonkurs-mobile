@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import usePaginationFetch from '../hooks/usePaginationFetch';
 import { GroupType } from '../types/GroupType';
 import type { StackScreenProps } from '@react-navigation/stack';
 import { GroupsParamList } from '../components/navigation/navBarGroups';
@@ -12,6 +13,8 @@ import { generateFilterUrl } from '../utils/generateFilterUrl';
 const Groups: FC<StackScreenProps<GroupsParamList,'GroupsScreens'>> = ({navigation, route}) => {
 
     const [url, setUrl] = useState(route.params.url)
+
+    const groupData = usePaginationFetch<GroupType>(url)
 
     useEffect(() =>{
         setUrl(generateFilterUrl(route.params.url, route.params.city, undefined, undefined))
@@ -28,7 +31,7 @@ const Groups: FC<StackScreenProps<GroupsParamList,'GroupsScreens'>> = ({navigati
 
     return(
         <PaginationList 
-            dataFetchUrl = {url}
+            stateList={groupData}
             headerComponent={<StatementButton text = '+ Разместить коллектив' />}
             renderItem={renderGroup}
             emtytext='Коллективы не найдены'

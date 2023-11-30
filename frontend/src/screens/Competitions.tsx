@@ -1,4 +1,5 @@
 import { FC, useState, useEffect } from 'react';
+import usePaginationFetch from '../hooks/usePaginationFetch';
 import type { StackScreenProps } from '@react-navigation/stack';
 import { CompetitionsParamList } from '../components/navigation/navBarCompetitions';
 import { CompetitionType } from '../types/CompetitionType';
@@ -12,6 +13,8 @@ import { generateFilterUrl } from '../utils/generateFilterUrl';
 const Competitions: FC<StackScreenProps<CompetitionsParamList, 'CompetitionScreen'>> = ({navigation, route}) => {
     
     const [url, setUrl] = useState(route.params.url)
+
+    const competitionData = usePaginationFetch<CompetitionType>(url)
 
     useEffect(() =>{
         setUrl(generateFilterUrl(route.params.url, route.params.city, undefined, undefined))
@@ -28,7 +31,7 @@ const Competitions: FC<StackScreenProps<CompetitionsParamList, 'CompetitionScree
 
     return(
         <PaginationList 
-            dataFetchUrl = {url}
+            stateList={competitionData}
             headerComponent={<StatementButton text = '+ Разместить конкурс' />}
             renderItem={renderCompetition}
             emtytext='Конкурсы не найдены'

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import { AccountIcon, EmailIcon, ExitIcon, PhoneIcon } from '../../../public/icons';
+import { AccountIcon, EmailIcon, ExitIcon, KeyIcon, PhoneIcon } from '../../../public/icons';
 import TextIcon from '../../uikit/textIcon/TextIcon';
 import { UserRole } from '../../consts/const';
 import { getRoleUser } from '../../utils/getRoleUser';
@@ -10,9 +10,9 @@ import { mainContainerStyle } from '../../styles/containers/MainContainer';
 import Button from '../../uikit/button/button';
 import { removeData } from '../../utils/asyncStorage/removeData';
 import { UserType } from '../../types/UserType';
+import { useUserContext } from '../../context/UserContext';
 
 type AccountInfoProps = {
-    setUser: (user: UserType | null) => void,
     surname: string,
     name: string,
     patronimic: string,
@@ -21,11 +21,14 @@ type AccountInfoProps = {
     phone: string
 }
 
-const AccountInfo: FC<AccountInfoProps> = ({setUser, surname, name, patronimic, role, mail, phone}) => {
+const AccountInfo: FC<AccountInfoProps> = ({ surname, name, patronimic, role, mail, phone}) => {
+
+    const {context, setContext} = useUserContext();
     
     const exit = () => {
         removeData('user')
-        setUser(null)
+        removeData('jwt')
+        setContext({user: null, jwt: null})
     }
     
     return(
@@ -42,8 +45,8 @@ const AccountInfo: FC<AccountInfoProps> = ({setUser, surname, name, patronimic, 
                     <Image source = {ExitIcon} style={{width: 25, height: 25}} />
                 </Button>
             </View>
-            <Text style = {accentTextStyle}>{ getRoleUser(role)}</Text>
             <View style = {infoStyle.containerInfo}>
+                <TextIcon iconName={KeyIcon} text = {getRoleUser(role)} styleIcon = {{width: 20, height: 20 }} colorIcon='#FF6B00' styleText={accentTextStyle}/>
                 <TextIcon iconName={PhoneIcon} text = {phone} styleIcon = {{width: 20, height: 16}} />
                 <TextIcon iconName={EmailIcon} text = {mail} styleIcon = {{width: 20, height: 16}} />
             </View>
@@ -66,6 +69,9 @@ const infoStyle = StyleSheet.create({
     containerInfo: {
         paddingTop: 20,
         rowGap: 15
+    },
+    role: {
+        paddingTop: 15,
     },
     containerExit: {
         flexDirection: 'row',

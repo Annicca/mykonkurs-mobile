@@ -3,12 +3,11 @@ import { imgURL } from "../../consts/const";
 import { GroupType } from "../../types/GroupType";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { PhotoImage } from "../../../public/images";
-import { HouseIcon } from "../../../public/icons";
+import GroupAddress from "../groupAddress/GroupAddress";
 import { mainContainerStyle } from "../../styles/containers/MainContainer";
 import { imgStyle } from "../../styles/img/ImgStyle";
 import { tileStyle } from "../../styles/title/TitleStyle";
 import { accentTextStyle } from "../../styles/accentText/AccentText";
-import { textStyle } from "../../styles/text/textStyle";
 
 type GroupItemProps = {
     group: GroupType
@@ -25,13 +24,7 @@ const GroupItem: FC<GroupItemProps> = memo( function GroupItem({group}) {
                     <Text style= {[tileStyle, groupItemStyle.title]}>{group.nameGroup}</Text>
                     <Text style={accentTextStyle}>Стиль {!!group.category ? group.category : '-'}</Text>
                 </View>
-                <View style = {groupItemStyle.address}>
-                    <Image source={HouseIcon} alt = 'Адрес ' style = {{width: 20, height: 20}}/>
-                    <View>
-                        <Text style={textStyle}>г. {group.cityGroup.city}</Text>
-                        <Text style={textStyle}>{group.addressGroup}</Text>
-                    </View>
-                </View>
+                <GroupAddress address={group.addressGroup} city={group.cityGroup.city} />
             </View>
         </View>
     )
@@ -52,12 +45,6 @@ const groupItemStyle = StyleSheet.create({
     },
     title: {
         paddingTop: 10,
-    },
-    address: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        columnGap: 10,
-        paddingTop: 15
     },
 })
 

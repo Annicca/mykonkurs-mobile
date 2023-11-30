@@ -5,6 +5,11 @@ export enum UserRole {
     CLIENT = 'CLIENT'
 }
 
+export enum StatementType {
+    GROUP = 'GROUP',
+    COMETITION = 'COMPETITION'
+}
+
 //home
 // export const baseURL = 'http://192.168.31.71:8080/api/'
 
