@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, memo} from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { StatementType } from '../../types/StatementType'
 import { mainContainerStyle } from '../../styles/containers/MainContainer'
@@ -50,4 +50,13 @@ const styleStatementItem = StyleSheet.create({
     }
 })
 
-export default StatementItem;
+export default memo(StatementItem,
+    (oldProps, newProps) => {
+      if (
+        oldProps.statement !== newProps.statement &&
+        oldProps.statement.idStatement !== newProps.statement.idStatement
+      ) {
+        return true;
+      }
+      return false;
+    });

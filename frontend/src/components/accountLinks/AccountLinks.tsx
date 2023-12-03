@@ -93,9 +93,8 @@ const AccountLinks: FC<AccountLinkspops> = ({role, idUser}) => {
                 <Button activity={() => toNavigate('MyCompetitions')}>
                     <TextIcon 
                         iconName={CompetitionsIcon} 
-                        text = 'Заявки на участие' 
+                        text = 'Мои конкурсы' 
                         styleIcon = {{width: 20, height: 20}}
-                        border = {true}
                         transition = {true} 
                     />
                 </Button>

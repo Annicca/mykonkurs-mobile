@@ -14,7 +14,7 @@ type CompetitionItemProps = {
     competition: CompetitionType
 }
 
-const CompetitionItem: FC<CompetitionItemProps> = memo( function CompetitionItem({competition}) {
+const CompetitionItem: FC<CompetitionItemProps> = ({competition}) => {
     return(
         <View style = {[mainContainerStyle, competitionItemStyle.container]}>
             <CustomImage 
@@ -29,7 +29,7 @@ const CompetitionItem: FC<CompetitionItemProps> = memo( function CompetitionItem
             <Text style = {[accentTextStyle, competitionItemStyle.title]}>Статус: {chooseStatusCompetition(competition.statusCompetition)}</Text>
         </View>
     )
-})
+}
 
 const competitionItemStyle = StyleSheet.create({
     container: {
@@ -51,4 +51,13 @@ const competitionItemStyle = StyleSheet.create({
     },
 })
 
-export default CompetitionItem;
+export default memo(CompetitionItem,
+    (oldProps, newProps) => {
+      if (
+        oldProps.competition !== newProps.competition &&
+        oldProps.competition.idCompetition !== newProps.competition.idCompetition
+      ) {
+        return true;
+      }
+      return false;
+    });

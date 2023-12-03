@@ -13,7 +13,7 @@ type GroupItemProps = {
     group: GroupType
 }
 
-const GroupItem: FC<GroupItemProps> = memo( function GroupItem({group}) {
+const GroupItem: FC<GroupItemProps> = ({group}) => {
     return(
         <View style= {[mainContainerStyle, groupItemStyle.container]}>
             <View style = {groupItemStyle.imgContainer}>
@@ -28,7 +28,7 @@ const GroupItem: FC<GroupItemProps> = memo( function GroupItem({group}) {
             </View>
         </View>
     )
-})
+}
 
 const groupItemStyle = StyleSheet.create({
     container: {
@@ -48,4 +48,13 @@ const groupItemStyle = StyleSheet.create({
     },
 })
 
-export default GroupItem;
+export default memo(GroupItem ,
+    (oldProps, newProps) => {
+      if (
+        oldProps.group !== newProps.group &&
+        oldProps.group.idGroup !== newProps.group.idGroup
+      ) {
+        return true;
+      }
+      return false;
+    });

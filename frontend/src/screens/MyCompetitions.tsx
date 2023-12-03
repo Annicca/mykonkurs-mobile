@@ -13,7 +13,7 @@ import { deleteFetch } from '../utils/delete';
 import { accentTextStyle } from '../styles/accentText/AccentText';
 
 
-const MyCompetitions: FC<StackScreenProps<AccountParamList>> = ({route}) => {
+const MyCompetitions: FC<StackScreenProps<AccountParamList>> = ({route, navigation}) => {
 
     const {user, jwt: token} = useUserContext().context;
 
@@ -29,9 +29,16 @@ const MyCompetitions: FC<StackScreenProps<AccountParamList>> = ({route}) => {
         confirm(() => deleteFetch(`competitions/${id}`, token, (data) => competitionsData.setData(data)))
     }
 
+    const toChange = (id: number) => {
+        navigation.navigate('MyCompetitions', {}) //заменить на форму
+    }
+
     const renderGroup: ListRenderItem<CompetitionType> = ({item}) => {
         return (
-            <MyCompetitionItem competition={item} deleteItem={user?.role === UserRole.ORGANIZER ? () => deleteCompetition(item.idCompetition) : () => {}}/>
+            <MyCompetitionItem 
+                competition={item} 
+                deleteItem={user?.role === UserRole.ORGANIZER ? () => deleteCompetition(item.idCompetition) : undefined}
+                toChangeItem={user?.role === UserRole.ORGANIZER ? () => toChange(item.idCompetition) : undefined}/>
         );
     };
 

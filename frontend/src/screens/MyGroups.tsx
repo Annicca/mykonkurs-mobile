@@ -28,9 +28,13 @@ const MyGroups: FC<StackScreenProps<AccountParamList, 'MyGroups'>> = ({navigatio
         confirm(() => deleteFetch(`groups/${id}`, token, (data) => groupData.setData(data)))
     }
 
+    const toChange = (id: number) => {
+        navigation.navigate('MyGroups') //поменять на форму
+    }
+
     const renderGroup: ListRenderItem<GroupType> = ({item}) => {
         return (
-            <MyGroupItem group={item} deleteItem={() => deleteGroup(item.idGroup)}/>
+            <MyGroupItem group={item} deleteItem={() => deleteGroup(item.idGroup)} toChangeItem={() => toChange(item.idGroup)}/>
         );
     };
 
