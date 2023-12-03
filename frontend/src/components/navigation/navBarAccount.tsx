@@ -10,6 +10,7 @@ import MyCompetitions from '../../screens/MyCompetitions';
 import StatementForm from '../../screens/StatementForm';
 import Login from '../../screens/Login';
 import Registry from '../../screens/Registry';
+import Participants from '../../screens/Participants';
 
 export type AccountParamList = {
     Account: undefined,
@@ -18,6 +19,7 @@ export type AccountParamList = {
     MyGroups: undefined,
     MyCompetitions: {urlPoint?: string},
     CompetitionsGroup: {urlPoint?: string},
+    Participants: {competitionId: number},
     StatementForm: undefined,
     Login: undefined,
     Registry: undefined
@@ -77,6 +79,14 @@ const NavBarAccount: FC = () => {
                 name = 'CompetitionsGroup'
                 component={MyCompetitions}
                 initialParams={{urlPoint: 'mygroups/competitions'}}
+                options={{
+                    ...options,
+                    headerTitle: 'Мои конкурсы',
+                }}
+            />
+            <Stack.Screen
+                name = 'Participants'
+                component={Participants}
                 options={{
                     ...options,
                     headerTitle: 'Мои конкурсы',
