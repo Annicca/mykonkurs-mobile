@@ -10,6 +10,11 @@ export enum StatementType {
     COMETITION = 'COMPETITION'
 }
 
+export enum StatementStatus {
+    ACCEPTED = 'ACCEPTED',
+    REJECTED = 'REJECTED'
+}
+
 //home
 export const baseURL = 'http://192.168.31.70:8080/api/'
 

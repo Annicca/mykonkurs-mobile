@@ -11,7 +11,7 @@ import StatementParticipantFrom from '../../screens/StatementParticipantFrom';
 export type CompetitionsParamList = {
     CompetitionScreen: {
         url: string,
-        city: string | undefined
+        value: string | undefined
     },
     Competition: {
         url?: string

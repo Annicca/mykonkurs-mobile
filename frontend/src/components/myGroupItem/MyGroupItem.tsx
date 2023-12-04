@@ -36,7 +36,7 @@ const MyGroupItem: FC<MyGroupItemProps> = ({group, deleteItem, toChangeItem}) =>
                     <GroupAddress address={group.addressGroup} city={group.cityGroup.city} />
                 </View>
             </View>
-            <Button activity={() => navigation.navigate('CompetitionsGroup', {})} buttonStyle={minyItemStyle.link}>
+            <Button activity={() => navigation.navigate('MyCompetitions', {urlPoint: 'mygroups/competitions', idItem: group.idGroup})} buttonStyle={minyItemStyle.link}>
                 <TextIcon iconName={CompetitionsIcon} styleIcon={{width: 20, height: 20}} text='Конкурсы  ->' colorIcon='#FF6B00' styleText = {accentTextStyle} />
             </Button>
             <DescriptionItem description={group.descriptionGroup} />

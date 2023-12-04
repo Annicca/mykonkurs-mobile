@@ -25,7 +25,7 @@ const MyGroups: FC<StackScreenProps<AccountParamList, 'MyGroups'>> = ({navigatio
     }, [user])
 
     const deleteGroup = (id: number) => {
-        confirm(() => deleteFetch(`groups/${id}`, token, (data) => groupData.setData(data)))
+        confirm('Вы действительно хотите удалить коллектив?', () => deleteFetch(`groups/${id}`, token, (data) => groupData.setData(data)))
     }
 
     const toChange = (id: number) => {
