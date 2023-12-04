@@ -10,7 +10,7 @@ import Search from '../search/search';
 export type GroupsParamList = {
     GroupsScreens: {
         url: string,
-        city: string | undefined
+        value: string | undefined
     },
     Group: {
         url?: string,

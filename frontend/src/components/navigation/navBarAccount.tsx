@@ -11,14 +11,24 @@ import StatementForm from '../../screens/StatementForm';
 import Login from '../../screens/Login';
 import Registry from '../../screens/Registry';
 import Participants from '../../screens/Participants';
+import Users from '../../screens/Users';
+import Header from '../header/header';
+import Search from '../search/search';
+import { useUserContext } from '../../context/UserContext';
+import { UserRole } from '../../consts/const';
 
 export type AccountParamList = {
     Account: undefined,
-    MyStatements: undefined,
+    MyStatements: {
+        url: string,
+        value?: string | undefined
+    },
     StatementParticipant: undefined,
     MyGroups: undefined,
-    MyCompetitions: {urlPoint?: string},
-    CompetitionsGroup: {urlPoint?: string},
+    MyCompetitions: {urlPoint: string, idItem: number},
+    Users: {url: string,
+        value?: string
+    },
     Participants: {competitionId: number},
     StatementForm: undefined,
     Login: undefined,
@@ -28,6 +38,8 @@ export type AccountParamList = {
 const Stack = createStackNavigator<AccountParamList>();
 
 const NavBarAccount: FC = () => {
+
+    const { user } = useUserContext().context
 
     return(
         <Stack.Navigator
@@ -45,10 +57,11 @@ const NavBarAccount: FC = () => {
             <Stack.Screen
                 name = 'MyStatements'
                 component={MyStatements}
-                options={{
+                initialParams={{url: 'statements/search'}}
+                options={({route}) => ({
                     ...options,
-                    headerTitle: 'Мои заявки',
-                }}
+                    headerTitle: user?.role === UserRole.ADMIN ? () => <Search url = {route.params.url} placeholder='Введите номер' /> : 'Заявки',
+                })}
             />
             <Stack.Screen
                 name = 'StatementParticipant'
@@ -69,16 +82,6 @@ const NavBarAccount: FC = () => {
             <Stack.Screen
                 name = 'MyCompetitions'
                 component={MyCompetitions}
-                initialParams={{urlPoint: 'mycompetitions'}}
-                options={{
-                    ...options,
-                    headerTitle: 'Мои конкурсы',
-                }}
-            />
-            <Stack.Screen
-                name = 'CompetitionsGroup'
-                component={MyCompetitions}
-                initialParams={{urlPoint: 'mygroups/competitions'}}
                 options={{
                     ...options,
                     headerTitle: 'Мои конкурсы',
@@ -89,7 +92,7 @@ const NavBarAccount: FC = () => {
                 component={Participants}
                 options={{
                     ...options,
-                    headerTitle: 'Мои конкурсы',
+                    headerTitle: 'Участники',
                 }}
             />
             <Stack.Screen
@@ -115,6 +118,15 @@ const NavBarAccount: FC = () => {
                     ...options,
                     headerShown: false
                 }}
+            />
+            <Stack.Screen
+                name = 'Users'
+                component={Users}
+                initialParams={{url: 'users/search'}}
+                options={({route}) => ({
+                    ...options,
+                    headerTitle: () => <Search url = {route.params.url} placeholder='Введите логин' />
+                })}
             />
         </Stack.Navigator>
     )

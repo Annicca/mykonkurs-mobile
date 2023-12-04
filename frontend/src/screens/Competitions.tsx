@@ -17,7 +17,7 @@ const Competitions: FC<StackScreenProps<CompetitionsParamList, 'CompetitionScree
     const competitionData = usePaginationFetch<CompetitionType>(url)
 
     useEffect(() =>{
-        setUrl(generateFilterUrl(route.params.url, route.params.city, undefined, undefined))
+        setUrl(generateFilterUrl(route.params.url, route.params.value, undefined, undefined))
     }, [route.params])
     
     const renderCompetition: ListRenderItem<CompetitionType> = ({item}) => {

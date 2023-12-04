@@ -9,17 +9,18 @@ import { CompetitionsParamList } from "../navigation/navBarCompetitions"
 import { GroupsParamList } from "../navigation/navBarGroups"
 
 type SearchProps = {
-    url: string
+    url: string,
+    placeholder?: string
 }
 
 type SearchScreenNavigationProp = StackNavigationProp<CompetitionsParamList> | StackNavigationProp<GroupsParamList>
 
-const Search: FC<SearchProps> = ({url}) => {
+const Search: FC<SearchProps> = ({url, placeholder}) => {
 
     const navigation = useNavigation<SearchScreenNavigationProp>();
 
     const search = (value: string) => {
-        navigation.setParams({url: url, city: value}) 
+        navigation.setParams({url: url, value: value}) 
         
     }
 
@@ -36,7 +37,7 @@ const Search: FC<SearchProps> = ({url}) => {
             </Button>
 
             <Input 
-                placeholder="Введите город"
+                placeholder={placeholder ? placeholder : "Введите город"}
                 style = {searchStyle.input}
                 placeholderTextColor= '#888'
                 onChangeText={text => search(text)}
@@ -64,7 +65,6 @@ const searchStyle = StyleSheet.create({
         left: 10,
         height: 10,
         width: 15,
-
     },
 })
 

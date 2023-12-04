@@ -1,7 +1,7 @@
 import { Alert } from "react-native"
 
-export const confirm = (action: () => void) => {
-    Alert.alert('Подтвердите действие', "Вы действительно хотите удалить коллектив?", [
+export const confirm = (message: string, action: () => void) => {
+    Alert.alert('Подтвердите действие', message, [
         {
             text: 'Отменить',
             onPress: () => {return}

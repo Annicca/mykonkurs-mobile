@@ -60,7 +60,7 @@ const TabBar: FC = () => {
             })} >
             <Tab.Screen name="NavBarGroups" key = {'groupsNavbar'} component = {NavBarGroups} options={{headerShown: false}} />
             <Tab.Screen name="NavBarCompetitions" key = {'competitionsNavBar'} component = {NavBarCompetitions} options={{headerShown: false}} />
-            <Tab.Screen name="NavBarAccount" key = {'accountNavbar'} component = {NavBarAccount} />
+            <Tab.Screen name="NavBarAccount" key = {'accountNavbar'} component = {NavBarAccount} options={{headerShown: false}}/>
         </Tab.Navigator>
     )
 }

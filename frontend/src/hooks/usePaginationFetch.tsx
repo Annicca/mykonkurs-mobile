@@ -1,5 +1,6 @@
 import { useState, useEffect, Dispatch, SetStateAction} from 'react';
 import { instance } from '../utils/instance';
+import { getRequestConfig } from '../utils/getRequestConfig';
 
 export type FetchTypePagination<T> = {
   data: T[], 
@@ -20,8 +21,7 @@ function usePaginationFetch<T>(url: string, token?: string | null): FetchTypePag
       setError(null);
       let isPaging = page !== 0;
       url = url.includes('?') ? url : url + '?';
-      let options = token ? {headers: {Authorization: `Bearer ${token}`}} : {}
-      instance.get(`${url}page=${page}`, options)
+      instance.get(`${url}page=${page}`, getRequestConfig(token))
       .then(res => {
           setLoading(false);
           if (isPaging) {

@@ -9,23 +9,27 @@ import PaginationList from '../components/paginationList/PaginationList';
 import { AccountParamList } from '../components/navigation/navBarAccount';
 import { accentTextStyle } from '../styles/accentText/AccentText';
 import StatementItem from '../components/statmentItem/StatementItem';
+import { UserRole } from '../consts/const';
 
-
-const MyStatements: FC<StackScreenProps<AccountParamList, 'MyStatements'>> = ({navigation}) => {
+const MyStatements: FC<StackScreenProps<AccountParamList, 'MyStatements'>> = ({navigation, route}) => {
 
     const {user, jwt: token} = useUserContext().context;
 
-    const [url, setUrl] = useState<string>(`mystatements/${user?.idUser}`)
+    const [url, setUrl] = useState<string>(user?.role === UserRole.ADMIN ? 'statements' : `mystatements/${user?.idUser}`)
 
     const statementData = usePaginationFetch<StatementType>(url, token)
 
     useEffect(() => {
-        setUrl(`mystatements/${user?.idUser}`)
-    }, [user])
+        if(user?.role === UserRole.ADMIN) {
+            route.params.value !== undefined && setUrl(`${route.params.url}/${route.params.value}`)
+            route.params.value?.length === 0 && setUrl('statements')
+        } else setUrl(`mystatements/${user?.idUser}`)
+    }, [user, route.params])
 
     const renderStatement: ListRenderItem<StatementType> = ({item}) => {
         return (
-            <StatementItem statement={item} />
+            <StatementItem 
+            statementInit={item} />
         );
     };
 
@@ -35,7 +39,7 @@ const MyStatements: FC<StackScreenProps<AccountParamList, 'MyStatements'>> = ({n
             <PaginationList 
                 stateList={statementData}
                 renderItem={renderStatement}
-                emtytext='У вас ещё нет заявок'
+                emtytext={ user?.role === UserRole.ADMIN ? 'Заявки не найдены' : 'У вас ещё нет заявок'}
             />
         )
 }

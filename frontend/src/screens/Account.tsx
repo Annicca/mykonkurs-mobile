@@ -12,7 +12,7 @@ const Account: FC = () => {
 
     return(
         <View>
-            {user?.role && <AccountInfo surname={user?.surnameUser} name = {user?.nameUser} patronimic={user?.patronimycUser} role = {user.role} mail={user.mailUser} phone={user.phoneUser} /> }
+            {user?.role && <AccountInfo user = {user} styleContainer = {styleAccount.containerAccountInfo} /> }
             <AccountLinks role={user?.role} idUser={user?.idUser}/>
             {user && user.role !== UserRole.ADMIN && 
                 <StatementButton 
@@ -32,7 +32,12 @@ const styleAccount = StyleSheet.create({
         marginHorizontal: 20,
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    containerAccountInfo: {
+        padding: 20,
+        marginTop: 50,
+        marginHorizontal: 20,
+    },
 })
 
 export default Account;

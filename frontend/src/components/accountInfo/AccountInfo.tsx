@@ -1,54 +1,103 @@
 import { FC } from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
-import { AccountIcon, EmailIcon, ExitIcon, KeyIcon, PhoneIcon } from '../../../public/icons';
+import { useUserContext } from '../../context/UserContext';
+import { useForm } from 'react-hook-form';
+import { UserType } from '../../types/UserType';
+import {View, Text, StyleSheet, Image, StyleProp, ViewStyle, Alert} from 'react-native';
+import FioUser from '../fioUser/FioUser';
+import Button from '../../uikit/button/button';
 import TextIcon from '../../uikit/textIcon/TextIcon';
-import { UserRole } from '../../consts/const';
 import { getRoleUser } from '../../utils/getRoleUser';
-import { tileStyle } from '../../styles/title/TitleStyle';
+import { removeData } from '../../utils/asyncStorage/removeData';
 import { accentTextStyle } from '../../styles/accentText/AccentText';
 import { mainContainerStyle } from '../../styles/containers/MainContainer';
-import Button from '../../uikit/button/button';
-import { removeData } from '../../utils/asyncStorage/removeData';
-import { UserType } from '../../types/UserType';
-import { useUserContext } from '../../context/UserContext';
+import { EmailIcon, ExitIcon, KeyIcon, OkIcon, PhoneIcon } from '../../../public/icons';
+import { confirm } from '../../utils/confirm';
+import { instance } from '../../utils/instance';
+import { getRequestConfig } from '../../utils/getRequestConfig';
+import DropDown from '../../uikit/dropDown/DropDown';
+import { UserRole } from '../../consts/const';
+import { textStyle } from '../../styles/text/textStyle';
+
 
 type AccountInfoProps = {
-    surname: string,
-    name: string,
-    patronimic: string,
-    role: UserRole,
-    mail: string,
-    phone: string
+    user: UserType,
+    styleContainer?: StyleProp<ViewStyle>,
+    isAccount?: boolean
 }
 
-const AccountInfo: FC<AccountInfoProps> = ({ surname, name, patronimic, role, mail, phone}) => {
+const AccountInfo: FC<AccountInfoProps> = ({user, styleContainer, isAccount = true}) => {
+
+    const {control , handleSubmit, formState: {errors, isValid}} = useForm({mode: "onChange"})
 
     const {context, setContext} = useUserContext();
+
+    const roleItems = [
+        {label: 'Администратор', value: UserRole.ADMIN},
+        {label: 'Организатор конкурсов', value: UserRole.ORGANIZER},
+        {label: 'Руководитель коллектива', value: UserRole.DIRECTOR},
+        {label: 'Клиент', value: UserRole.CLIENT}
+    ]
     
     const exit = () => {
         removeData('user')
         removeData('jwt')
         setContext({user: null, jwt: null})
     }
+
+    const changeRole = (user: UserType) => {
+        instance.put('users', user, getRequestConfig(context.jwt))
+        .then((result) =>{
+            console.log(result.data);
+            Alert.alert("Успешно")
+        }).catch((e)=>{
+            console.log(e);
+            if(e.response){
+                Alert.alert('Ошибка',e.response.data.message)
+             }else{
+                Alert.alert('Ошибка', "Мы не смогли изменить данные(");
+            }
+        })
+    }
+
+    const onChangeRole = handleSubmit(async (data) => {
+        confirm('Вы действительно хотите изменить пользователя?', () => changeRole({...user, ...data}))
+    })
     
     return(
-        <View style = {[mainContainerStyle, infoStyle.container]}>
+        <View style = {[mainContainerStyle, styleContainer]}>
             <View style = {infoStyle.containerExit}>
-                <View style = {infoStyle.containerName}>
-                    <Image source={AccountIcon} style = {infoStyle.icon} />
-                    <View>
-                        <Text style = {tileStyle}>{surname} {name}</Text>
-                        <Text style = {tileStyle}>{patronimic}</Text>
-                    </View>
-                </View>
-                <Button activity={exit}>
+                <FioUser surname={user.surnameUser} name={user.nameUser} patronimic={user.patronimycUser} />
+                {isAccount && <Button activity={exit}>
                     <Image source = {ExitIcon} style={{width: 25, height: 25}} />
-                </Button>
+                </Button>}
             </View>
             <View style = {infoStyle.containerInfo}>
-                <TextIcon iconName={KeyIcon} text = {getRoleUser(role)} styleIcon = {{width: 20, height: 20 }} colorIcon='#FF6B00' styleText={accentTextStyle}/>
-                <TextIcon iconName={PhoneIcon} text = {phone} styleIcon = {{width: 20, height: 16}} />
-                <TextIcon iconName={EmailIcon} text = {mail} styleIcon = {{width: 20, height: 16}} />
+                {isAccount ? 
+                    <TextIcon iconName={KeyIcon} text = {getRoleUser(user.role)} styleIcon = {{width: 20, height: 20 }} colorIcon='#FF6B00' styleText={accentTextStyle}/> :
+                    <>
+                        <View style={infoStyle.containerEditRole}>
+                            <DropDown
+                                items = {roleItems}
+                                placeholder={{ label : 'Выберите роль' , значение : null }}
+                                control={control}
+                                name = 'role'
+                                rules = {{
+                                    required : 'Поле обязательно',
+                                }}
+                                containerWidth={'70%'}
+                                value={user.role}
+                                onValueChange={() => {}}
+                                error = {errors.role && errors.role.message?.toString()}
+                            />
+                            <Button buttonStyle={infoStyle.buttonSave} activity={onChangeRole}>
+                                <Image source={OkIcon} style={{width: 20, height: 20}} />
+                            </Button>
+                        </View>
+                        <Text style = {textStyle}>Логин: {user.loginUser}</Text>
+                    </>
+                }
+                <TextIcon iconName={PhoneIcon} text = {user.phoneUser} styleIcon = {{width: 20, height: 16}} />
+                <TextIcon iconName={EmailIcon} text = {user.mailUser} styleIcon = {{width: 20, height: 16}} />
             </View>
 
         </View>
@@ -56,16 +105,6 @@ const AccountInfo: FC<AccountInfoProps> = ({ surname, name, patronimic, role, ma
 }
 
 const infoStyle = StyleSheet.create({
-    container: {
-        padding: 20,
-        marginTop: 50,
-        marginHorizontal: 20,
-    },
-    containerName: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        columnGap: 10
-    },
     containerInfo: {
         paddingTop: 20,
         rowGap: 15
@@ -73,15 +112,22 @@ const infoStyle = StyleSheet.create({
     role: {
         paddingTop: 15,
     },
+    containerEditRole: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        columnGap: 10
+    },
     containerExit: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start'
     },
-    icon: {
-        height: 50,
-        width: 50
-    },
+    buttonSave: {
+        padding: 10,
+        borderRadius: 10,
+        backgroundColor: '#FFD700',
+        alignItems: 'center'
+    }
 })
 
 export default AccountInfo;

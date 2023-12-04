@@ -1,4 +1,5 @@
-import {FC, memo} from 'react'
+import {FC, useState, memo} from 'react'
+import { useUserContext } from '../../context/UserContext'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { StatementType } from '../../types/StatementType'
 import { mainContainerStyle } from '../../styles/containers/MainContainer'
@@ -7,14 +8,58 @@ import { textStyle } from '../../styles/text/textStyle'
 import { accentTextStyle } from '../../styles/accentText/AccentText'
 import { chooseStatusStatement } from '../../utils/chooseStatusStatement'
 import { chooseTypeStatement } from '../../utils/chooseTypeStatement'
-import { StatementType as TypeStatement } from '../../consts/const'
+import { StatementType as TypeStatement, UserRole } from '../../consts/const'
 import DescriptionItem from '../descriptionItem/DescriptionItem'
+import Button from '../../uikit/button/button'
+import { confirm } from '../../utils/confirm'
+import { changeStatus } from '../../utils/changeStatus'
 
 type StatementItemProps = {
-    statement: StatementType
+    statementInit: StatementType
 }
 
-const StatementItem: FC<StatementItemProps> = ({statement}) => {
+const StatementItem: FC<StatementItemProps> = ({statementInit}) => {
+
+    const {user, jwt} = useUserContext().context;
+
+    const [statement, setStatement] = useState<StatementType>(statementInit)
+
+    const changeStatementStatus = (id: number, status: string ) => {
+        confirm('Вы действительно хотите изменить статус?', () =>
+        changeStatus(id, status, setStatement, jwt))
+    }
+
+    const styleStatementItem = StyleSheet.create({
+        info: {
+            flexDirection: 'row',
+            columnGap: 20
+        },
+        dataStatement: {
+            paddingTop: 10,
+            rowGap: 5
+        },
+        buttonContainer: {
+            flexDirection: 'row',
+            columnGap: 10,
+            paddingTop: 10,
+        },
+        button: {
+            padding: 10,
+            borderRadius: 10,
+            maxWidth: 150,
+        },
+        textButton: {
+            color: '#FFF',
+            textAlign: 'center'
+        },
+        acceptButton: {
+            backgroundColor: statement.statusStatement ? '#888' : '#01C22B'
+        },
+        rejectButton: {
+            backgroundColor: statement.statusStatement ? '#888' : '#FF6B00'
+        }
+    })
+
     return(
         <View style = {mainContainerStyle}>
             <View style={styleStatementItem.info}>
@@ -25,7 +70,7 @@ const StatementItem: FC<StatementItemProps> = ({statement}) => {
                 </View>
             </View>
             <View style={styleStatementItem.dataStatement}>
-                <Text style = {textStyle}>Тип: {chooseTypeStatement(statement.type)}</Text>
+                <Text style = {accentTextStyle}>Тип: {chooseTypeStatement(statement.type)}</Text>
                 <Text style = {textStyle}>Название: {statement.name}</Text>
                 {statement.type === TypeStatement.COMETITION && 
                     <>
@@ -33,28 +78,37 @@ const StatementItem: FC<StatementItemProps> = ({statement}) => {
                         <Text style = {textStyle}>Дата оконания: {statement.dateFinish}</Text>
                     </>
                 }
+                {user?.role === UserRole.ADMIN && 
+                    <>
+                        <Text style = {textStyle}>Пользователь: {statement.user.patronimycUser + ' ' + statement.user.nameUser + ' ' + statement.user.surnameUser}</Text>
+                        <Text style = {textStyle}>Почта: {statement.user.mailUser}</Text>
+                        <Text style = {textStyle}>Телефон: {statement.user.phoneUser ? statement.user.phoneUser : '-'}</Text>
+                    </>
+                }
                 <DescriptionItem description={statement.description} />
+
+                {user?.role === UserRole.ADMIN && 
+                    <View style={styleStatementItem.buttonContainer}>
+                        <Button buttonStyle = {[styleStatementItem.button, styleStatementItem.acceptButton]} 
+                        activity={() => changeStatementStatus(statement.idStatement, 'accept')}>
+                            <Text style={styleStatementItem.textButton}>Принять</Text>
+                        </Button>
+                        <Button buttonStyle = {[styleStatementItem.button, styleStatementItem.rejectButton]}
+                        activity={() => changeStatementStatus(statement.idStatement, 'accept')}>
+                            <Text style={styleStatementItem.textButton}>Отклонить</Text>
+                        </Button>
+                    </View>
+                }
             </View>
         </View>
     )
 }
 
-const styleStatementItem = StyleSheet.create({
-    info: {
-        flexDirection: 'row',
-        columnGap: 20
-    },
-    dataStatement: {
-        paddingTop: 10,
-        rowGap: 5
-    }
-})
-
 export default memo(StatementItem,
     (oldProps, newProps) => {
       if (
-        oldProps.statement !== newProps.statement &&
-        oldProps.statement.idStatement !== newProps.statement.idStatement
+        oldProps.statementInit !== newProps.statementInit &&
+        oldProps.statementInit.idStatement !== newProps.statementInit.idStatement
       ) {
         return true;
       }

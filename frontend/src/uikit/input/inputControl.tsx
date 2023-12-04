@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TextInputProps } from "react-native"
 import { Control, FieldValues, FieldError, Merge, FieldErrorsImpl, RegisterOptions } from "react-hook-form/dist/types";
 import {Controller} from 'react-hook-form'
 import { accentTextStyle } from "../../styles/accentText/AccentText";
+import { styleInput } from "../../styles/input";
 
 type InputProps  = TextInputProps & {
     rules?: Omit<RegisterOptions<FieldValues, string>, "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"> | undefined,
@@ -31,25 +32,6 @@ const InputControl: FC<InputProps> = ({
         setFocused(false)
     }
 
-    const styleInput = StyleSheet.create({
-        input: {
-            height: 40,
-            width: '100%',
-            paddingLeft: 20,
-            borderRadius: 10,
-            borderWidth: 2,
-            borderColor: isFocused ? '#FFB800' : '#FFD700',
-            backgroundColor: '#FFF',
-            color: '#888',
-        },
-        error: {
-            paddingTop: 10,
-            fontFamily: 'Inter-Regular',
-            fontSize: 14,
-            color: '#FF6B00'
-        }
-    })
-
     return(
         <View style = {{width: '100%'}}>
             {rules?.required && <Text style={accentTextStyle}>*</Text>}
@@ -61,7 +43,7 @@ const InputControl: FC<InputProps> = ({
                     <TextInput 
                         placeholder = {placeholder}
                         secureTextEntry = {secureTextEntry}
-                        style = {styleInput.input} 
+                        style = {isFocused ? [styleInput.input, styleInput.focused] : styleInput.input} 
                         placeholderTextColor={placeholderTextColor ? placeholderTextColor : '#888'}
                         defaultValue={defaultValue}
                         value={value}

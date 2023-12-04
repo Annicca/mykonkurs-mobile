@@ -13,24 +13,24 @@ import { deleteFetch } from '../utils/delete';
 import { accentTextStyle } from '../styles/accentText/AccentText';
 
 
-const MyCompetitions: FC<StackScreenProps<AccountParamList>> = ({route, navigation}) => {
+const MyCompetitions: FC<StackScreenProps<AccountParamList, 'MyCompetitions'>> = ({route, navigation}) => {
 
     const {user, jwt: token} = useUserContext().context;
 
-    const [url, setUrl] = useState<string>(`${route.params?.urlPoint}/${user?.idUser}`)
+    const [url, setUrl] = useState<string>(`${route.params?.urlPoint}/${route.params?.idItem}`)
 
     const competitionsData = usePaginationFetch<CompetitionType>(url, token)
 
     useEffect(() => {
-        setUrl(`${route.params?.urlPoint}/${user?.idUser}`)
-    }, [user, route.params])
+        setUrl(`${route.params?.urlPoint}/${route.params?.idItem}`)
+    }, [route.params])
 
     const deleteCompetition = (id: number) => {
-        confirm(() => deleteFetch(`competitions/${id}`, token, (data) => competitionsData.setData(data)))
+        confirm('Вы действительно хотите удалить конкурс?',() => deleteFetch(`competitions/${id}`, token, (data) => competitionsData.setData(data)))
     }
 
     const toChange = (id: number) => {
-        navigation.navigate('MyCompetitions', {}) //заменить на форму
+        navigation.navigate('Account') //заменить на форму
     }
 
     const renderGroup: ListRenderItem<CompetitionType> = ({item}) => {
