@@ -48,9 +48,16 @@ public class GroupController {
         return service.getById(id);
     }
 
+//    @PutMapping("/groups")
+//    @ResponseBody
+//    public ArtGroup UpdateGroup(@ModelAttribute @Valid GroupChangeDTO group) throws IOException {
+//
+//        return service.update(group);
+//    }
+
     @PutMapping("/groups")
     @ResponseBody
-    public ArtGroup UpdateGroup(@ModelAttribute @Valid GroupChangeDTO group) throws IOException {
+    public ArtGroup UpdateGroup(@RequestBody @Valid GroupChangeDTO group) throws IOException {
 
         return service.update(group);
     }
@@ -69,9 +76,15 @@ public class GroupController {
         return service.all(pageable);
     }
 
+//    @GetMapping("/mycompetitions/participants/{id}")
+//    @ResponseBody
+//    public List<ArtGroup> GetParticipants(@PathVariable Integer id){
+//        return service.getParticipant(id);
+//    }
+
     @GetMapping("/mycompetitions/participants/{id}")
     @ResponseBody
-    public List<ArtGroup> GetParticipants(@PathVariable Integer id){
-        return service.getParticipant(id);
+    public Page<ArtGroup> GetParticipants(@PathVariable Integer id, @PageableDefault Pageable pageable){
+        return service.getPageParticipants(id, pageable);
     }
 }

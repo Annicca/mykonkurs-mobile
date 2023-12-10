@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useUserContext } from '../../context/UserContext';
 import { useForm } from 'react-hook-form';
 import { UserType } from '../../types/UserType';
@@ -17,7 +17,7 @@ import { getRequestConfig } from '../../utils/getRequestConfig';
 import DropDown from '../../uikit/dropDown/DropDown';
 import { UserRole } from '../../consts/const';
 import { textStyle } from '../../styles/text/textStyle';
-
+import ButtonSave from '../../uikit/buttonSave/ButtonSave';
 
 type AccountInfoProps = {
     user: UserType,
@@ -31,12 +31,12 @@ const AccountInfo: FC<AccountInfoProps> = ({user, styleContainer, isAccount = tr
 
     const {context, setContext} = useUserContext();
 
-    const roleItems = [
-        {label: 'Администратор', value: UserRole.ADMIN},
-        {label: 'Организатор конкурсов', value: UserRole.ORGANIZER},
-        {label: 'Руководитель коллектива', value: UserRole.DIRECTOR},
-        {label: 'Клиент', value: UserRole.CLIENT}
-    ]
+    const roleItems = useMemo(() => [
+        {label: 'Администратор', value: UserRole.ADMIN, color: '#888', inputLabel: 'Роль'},
+        {label: 'Организатор конкурсов', value: UserRole.ORGANIZER, color: '#888', inputLabel: 'Роль'},
+        {label: 'Руководитель коллектива', value: UserRole.DIRECTOR, color: '#888', inputLabel: 'Роль'},
+        {label: 'Клиент', value: UserRole.CLIENT, color: '#888', inputLabel: 'Роль'}
+    ], [])
     
     const exit = () => {
         removeData('user')
@@ -47,10 +47,8 @@ const AccountInfo: FC<AccountInfoProps> = ({user, styleContainer, isAccount = tr
     const changeRole = (user: UserType) => {
         instance.put('users', user, getRequestConfig(context.jwt))
         .then((result) =>{
-            console.log(result.data);
             Alert.alert("Успешно")
         }).catch((e)=>{
-            console.log(e);
             if(e.response){
                 Alert.alert('Ошибка',e.response.data.message)
              }else{
@@ -78,7 +76,7 @@ const AccountInfo: FC<AccountInfoProps> = ({user, styleContainer, isAccount = tr
                         <View style={infoStyle.containerEditRole}>
                             <DropDown
                                 items = {roleItems}
-                                placeholder={{ label : 'Выберите роль' , значение : null }}
+                                placeholder={{ label : 'Выберите роль' , value : null }}
                                 control={control}
                                 name = 'role'
                                 rules = {{
@@ -89,14 +87,12 @@ const AccountInfo: FC<AccountInfoProps> = ({user, styleContainer, isAccount = tr
                                 onValueChange={() => {}}
                                 error = {errors.role && errors.role.message?.toString()}
                             />
-                            <Button buttonStyle={infoStyle.buttonSave} activity={onChangeRole}>
-                                <Image source={OkIcon} style={{width: 20, height: 20}} />
-                            </Button>
+                            <ButtonSave activity={onChangeRole} />
                         </View>
                         <Text style = {textStyle}>Логин: {user.loginUser}</Text>
                     </>
                 }
-                <TextIcon iconName={PhoneIcon} text = {user.phoneUser} styleIcon = {{width: 20, height: 16}} />
+                {user.phoneUser && <TextIcon iconName={PhoneIcon} text = {user.phoneUser} styleIcon = {{width: 20, height: 16}} />}
                 <TextIcon iconName={EmailIcon} text = {user.mailUser} styleIcon = {{width: 20, height: 16}} />
             </View>
 
@@ -122,12 +118,6 @@ const infoStyle = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'flex-start'
     },
-    buttonSave: {
-        padding: 10,
-        borderRadius: 10,
-        backgroundColor: '#FFD700',
-        alignItems: 'center'
-    }
 })
 
 export default AccountInfo;

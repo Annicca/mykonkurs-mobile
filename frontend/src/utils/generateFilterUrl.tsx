@@ -1,4 +1,8 @@
-export const generateFilterUrl = (url : string, city : string | undefined, filter : object | undefined, sort: boolean | undefined) =>{
+import { FilterType } from "../types/FilterType";
+
+
+
+export const generateFilterUrl = (url : string, city : string | undefined, filter : FilterType, sort: boolean | undefined) =>{
     if(!city && !filter && !sort) {
         return url
     }

@@ -1,10 +1,11 @@
 import { FC, useState,useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import usePaginationFetch from '../hooks/usePaginationFetch';
 import { useUserContext } from '../context/UserContext';
-import {Text} from 'react-native';
+import {Text, ListRenderItem} from 'react-native';
+import { StatementType } from '../consts/const';
 import { StackScreenProps } from '@react-navigation/stack';
 import { AccountParamList } from '../components/navigation/navBarAccount';
-import { ListRenderItem } from 'react-native';
 import { GroupType } from '../types/GroupType';
 import PaginationList from '../components/paginationList/PaginationList';
 import { accentTextStyle } from '../styles/accentText/AccentText';
@@ -18,7 +19,9 @@ const MyGroups: FC<StackScreenProps<AccountParamList, 'MyGroups'>> = ({navigatio
 
     const [url, setUrl] = useState<string>(`mygroups/${user?.idUser}`)
 
-    const groupData = usePaginationFetch<GroupType>(url, token)
+    const isFocused = useIsFocused()
+
+    const groupData = usePaginationFetch<GroupType>(url, token, isFocused)
 
     useEffect(() => {
         setUrl(`mygroups/${user?.idUser}`)
@@ -29,7 +32,7 @@ const MyGroups: FC<StackScreenProps<AccountParamList, 'MyGroups'>> = ({navigatio
     }
 
     const toChange = (id: number) => {
-        navigation.navigate('MyGroups') //поменять на форму
+        navigation.navigate('EditItem', {urlPoint:'groups', idItem: id, type: StatementType.GROUP})
     }
 
     const renderGroup: ListRenderItem<GroupType> = ({item}) => {

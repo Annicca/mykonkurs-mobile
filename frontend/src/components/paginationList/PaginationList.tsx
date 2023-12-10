@@ -6,8 +6,6 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
 import { accentTextStyle } from '../../styles/accentText/AccentText';
 
-
-
 type PaginationListProps<T> = {
     stateList: FetchTypePagination<T>,
     renderItem: ListRenderItem<T>,
@@ -20,28 +18,28 @@ export default function PaginationList<T>({stateList, renderItem, headerComponen
 
     const route = useRoute();
 
-    const {data, loading, error, page, setPage} = stateList;
+    const {data, loading, error, isEnd, page, setPage} = stateList;
 
     useEffect(() =>{
         setPage((page) => 0)
     }, [route.params])
 
     const loadData = async() => {
-        if(!loading) {
+        if(!loading && !isEnd) {
             setPage((page) => page+1)
         }
     }
 
     return(
         <View>
+            {headerComponent}
             {
                 error ? <View style={listStyle.container}><ErrorMessage message='Произошла ошибка при загрузке данных' /></View> :
-                !loading && data.length === 0 ?
+                (!loading && data && data.length === 0) ?
                 <View style={listStyle.container}><Text style = {accentTextStyle}>{emtytext}</Text></View> :
                 <FlatList 
                 data={data}
                 extraData={stateList}
-                ListHeaderComponent={headerComponent}
                 removeClippedSubviews = {true}
                 initialNumToRender = {10}
                 renderItem={renderItem}
@@ -58,7 +56,8 @@ export default function PaginationList<T>({stateList, renderItem, headerComponen
 const listStyle = StyleSheet.create({
     list: {
         paddingHorizontal: 20,
-        paddingVertical: 40,
+        paddingTop: 40,
+        paddingBottom: 100,
         rowGap: 30,
     },
     container: {

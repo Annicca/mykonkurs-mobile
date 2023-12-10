@@ -23,6 +23,7 @@ const DropDown: FC<DropDownProps> = ({
     value,
     containerWidth
 }) => {
+
     return(
         <View style = {{width: containerWidth}}>
             <Controller 
@@ -41,7 +42,6 @@ const DropDown: FC<DropDownProps> = ({
             />
             {error && <Text style = {styleInput.error}>{error.toString()}</Text>}
         </View>
-
     )
 }
 
@@ -51,6 +51,7 @@ const styleDropdown = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#FFD700',
     },
+    
 })
 
 export default DropDown;

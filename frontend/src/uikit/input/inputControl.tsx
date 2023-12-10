@@ -1,16 +1,9 @@
 import { FC, useState } from "react";
-import { View, Text, StyleSheet, TextInput, TextInputProps } from "react-native";
-import { Control, FieldValues, FieldError, Merge, FieldErrorsImpl, RegisterOptions } from "react-hook-form/dist/types";
+import { View, Text, TextInput } from "react-native";
+import { InputProps } from "../../types/InputProps";
 import {Controller} from 'react-hook-form'
 import { accentTextStyle } from "../../styles/accentText/AccentText";
 import { styleInput } from "../../styles/input";
-
-type InputProps  = TextInputProps & {
-    rules?: Omit<RegisterOptions<FieldValues, string>, "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"> | undefined,
-    control: Control<FieldValues>,
-    name: string,
-    error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> 
-} ;
 
 const InputControl: FC<InputProps> = ({
     control, 
@@ -20,7 +13,10 @@ const InputControl: FC<InputProps> = ({
     placeholder, 
     placeholderTextColor, 
     defaultValue,
-    secureTextEntry}) => {
+    secureTextEntry,
+    multiline,
+    numberOfLines,
+    style}) => {
 
     const [isFocused, setFocused] = useState(false)
     
@@ -43,13 +39,16 @@ const InputControl: FC<InputProps> = ({
                     <TextInput 
                         placeholder = {placeholder}
                         secureTextEntry = {secureTextEntry}
-                        style = {isFocused ? [styleInput.input, styleInput.focused] : styleInput.input} 
+                        style = {isFocused ? [styleInput.input, styleInput.focused, style] : [styleInput.input, style]} 
                         placeholderTextColor={placeholderTextColor ? placeholderTextColor : '#888'}
                         defaultValue={defaultValue}
-                        value={value}
+                        value={value ? value : defaultValue}
                         onChangeText={onChange}
                         onBlur={() => {onBlur(); handleBlur()}}
                         onFocus={handleFocus}
+                        multiline={multiline}
+                        numberOfLines={numberOfLines}
+                        textAlignVertical="top"
                     />
                 )}
             />

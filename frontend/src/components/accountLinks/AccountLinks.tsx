@@ -59,7 +59,7 @@ const AccountLinks: FC<AccountLinkspops> = ({role, idUser}) => {
     } else if(role && role === UserRole.DIRECTOR)
         return (
             <View style = {[mainContainerStyle, styleAccountLinks.container]}>
-                <Button activity={() => toNavigate('MyStatements', {idUser: idUser})}>
+                <Button activity={() => toNavigate('MyStatements', {url: 'statements'})}>
                     <TextIcon 
                         iconName={StatementIcon} 
                         text = 'Мои заявки'
@@ -68,7 +68,7 @@ const AccountLinks: FC<AccountLinkspops> = ({role, idUser}) => {
                         transition = {true} 
                     />
                 </Button>
-                <Button activity={() => toNavigate('StatementParticipant')}>
+                <Button activity={() => toNavigate('StatementParticipant', {urlPoint: `statementsparticipant/${idUser}`})}>
                 <TextIcon 
                         iconName={CompetitionsIcon} 
                         text = 'Заявки на участие' 

@@ -6,7 +6,7 @@ import { tileStyle } from '../../styles/title/TitleStyle';
 type FioUserProps = {
     name: string,
     surname: string,
-    patronimic: string
+    patronimic?: string
 }
 
 const FioUser: FC<FioUserProps> = ({name, surname, patronimic}) => {
@@ -15,7 +15,7 @@ const FioUser: FC<FioUserProps> = ({name, surname, patronimic}) => {
             <Image source={AccountIcon} style = {styleFio.icon} />
             <View>
                 <Text style = {tileStyle}>{surname} {name}</Text>
-                <Text style = {tileStyle}>{patronimic}</Text>
+                {patronimic && <Text style = {tileStyle}>{patronimic}</Text>}
             </View>
         </View>
     )

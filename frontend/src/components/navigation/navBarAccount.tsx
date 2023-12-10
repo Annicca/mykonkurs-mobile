@@ -12,10 +12,10 @@ import Login from '../../screens/Login';
 import Registry from '../../screens/Registry';
 import Participants from '../../screens/Participants';
 import Users from '../../screens/Users';
-import Header from '../header/header';
 import Search from '../search/search';
 import { useUserContext } from '../../context/UserContext';
-import { UserRole } from '../../consts/const';
+import { StatementType, UserRole } from '../../consts/const';
+import EditItem from '../../screens/EditItem';
 
 export type AccountParamList = {
     Account: undefined,
@@ -23,9 +23,14 @@ export type AccountParamList = {
         url: string,
         value?: string | undefined
     },
-    StatementParticipant: undefined,
+    StatementParticipant: {urlPoint: string},
     MyGroups: undefined,
-    MyCompetitions: {urlPoint: string, idItem: number},
+    EditItem: {
+        urlPoint: string, 
+        idItem: number,
+        type: StatementType
+    },
+    MyCompetitions: {urlPoint: string, idItem?: number},
     Users: {url: string,
         value?: string
     },
@@ -85,6 +90,14 @@ const NavBarAccount: FC = () => {
                 options={{
                     ...options,
                     headerTitle: 'Мои конкурсы',
+                }}
+            />
+            <Stack.Screen
+                name = 'EditItem'
+                component={EditItem}
+                options={{
+                    ...options,
+                    headerTitle: '',
                 }}
             />
             <Stack.Screen

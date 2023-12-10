@@ -177,5 +177,6 @@ public class Competition {
         this.descriptionCompetition = competitionChangeDTO.getDescriptionCompetition();
         this.dateStart = competitionChangeDTO.getDateStart();
         this.dateFinish = competitionChangeDTO.getDateFinish();
+        this.img = competitionChangeDTO.getImg();
     }
 }

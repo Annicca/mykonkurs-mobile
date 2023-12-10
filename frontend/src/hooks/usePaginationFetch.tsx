@@ -7,14 +7,16 @@ export type FetchTypePagination<T> = {
   setData: Dispatch<SetStateAction<T[]>>, 
   loading: any, 
   error: any, 
+  isEnd: boolean,
   page: number, 
   setPage: (action: (page:number) => number) => void}
 
-function usePaginationFetch<T>(url: string, token?: string | null): FetchTypePagination<T>  {
+function usePaginationFetch<T>(url: string, token?: string | null, isFocused?: boolean): FetchTypePagination<T>  {
   const [data, setData] = useState<T[]>([]);
   const [page, setPage] = useState<number>(0);
   const [loading, setLoading] = useState<any>(null);
   const [error, setError] = useState<null | string>(null);
+  const [isEnd, setIsEnd] = useState<boolean>(true)
 
   useEffect(() => {
       setLoading(true)
@@ -23,6 +25,7 @@ function usePaginationFetch<T>(url: string, token?: string | null): FetchTypePag
       url = url.includes('?') ? url : url + '?';
       instance.get(`${url}page=${page}`, getRequestConfig(token))
       .then(res => {
+          setIsEnd(res.data.last)
           setLoading(false);
           if (isPaging) {
             res.data.content &&
@@ -36,9 +39,9 @@ function usePaginationFetch<T>(url: string, token?: string | null): FetchTypePag
           setError(err.message)
           console.log(err)
       })
-  }, [url, page, token])
+  }, [url, page, token, isFocused])
 
-  return { data, setData, loading, error, page, setPage }
+  return { data, setData, loading, error, isEnd, page, setPage }
 }
 
 export default usePaginationFetch;

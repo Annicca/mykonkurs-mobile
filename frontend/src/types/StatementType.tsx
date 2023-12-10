@@ -8,7 +8,7 @@ export type StatementType = {
     name: string,
     description: string,
     city: CityType,
-    address: string,
+    address: string | null,
     dateStart: string | null,
     dateFinish: string | null,
     statusStatement: string | null

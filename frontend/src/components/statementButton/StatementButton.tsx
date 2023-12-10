@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import { useNavigation, ParamListBase } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import ButtonGradient from '../../uikit/buttonGradient/ButtonGradient';

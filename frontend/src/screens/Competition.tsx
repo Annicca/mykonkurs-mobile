@@ -1,5 +1,6 @@
 import {FC} from 'react';
 import useFetch from '../hooks/useFetch';
+import { useUserContext } from '../context/UserContext';
 import { View, Text } from "react-native"
 import { ScrollView } from 'react-native-gesture-handler';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -16,10 +17,13 @@ import ButtonGradient from '../uikit/buttonGradient/ButtonGradient';
 import Description from '../components/description/Description';
 import CustomImage from '../components/customImage/CustomImage';
 import { chooseStatusCompetition } from '../utils/chooseStatusCompetition';
+import { UserRole } from '../consts/const';
 
 const Competition: FC<StackScreenProps<CompetitionsParamList, 'Competition'>> = ({navigation, route}) => {
 
     const {data: competition, loading, error} = useFetch<CompetitionType>(`${route.params.url}/${route.params.idCompetition}`)
+
+    const {user, jwt} = useUserContext().context
 
     return (
         <ScrollView style = {generalContainerStyle}>
@@ -38,7 +42,8 @@ const Competition: FC<StackScreenProps<CompetitionsParamList, 'Competition'>> = 
                     <Text style = {[accentTextStyle, competitionStyle.title]}>Статус: {chooseStatusCompetition(competition.statusCompetition)}</Text>
                     <Description description={competition.descriptionCompetition} />
                     <ButtonGradient
-                        action={() => navigation.navigate('StatementParticipantFrom', {idCompetition: competition.idCompetition})}
+                        disabled = {user?.role !== UserRole.DIRECTOR}
+                        action={() => navigation.navigate('StatementParticipantFrom', {competition: competition})}
                         text = 'Подать заявку на участие'
                         containerStyle = {competitionStyle.containerButton} />
                 </View>

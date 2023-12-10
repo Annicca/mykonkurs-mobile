@@ -7,18 +7,25 @@ import { ListRenderItem } from 'react-native';
 import Button from '../uikit/button/button';
 import CompetitionItem from '../components/competitionItem/CompetitionItem';
 import PaginationList from '../components/paginationList/PaginationList';
-import StatementButton from '../components/statementButton/StatementButton';
 import { generateFilterUrl } from '../utils/generateFilterUrl';
+import { useIsFocused } from '@react-navigation/native';
+import Filter from '../components/filter/Filter';
+import { FilterType } from '../types/FilterType';
 
 const Competitions: FC<StackScreenProps<CompetitionsParamList, 'CompetitionScreen'>> = ({navigation, route}) => {
     
     const [url, setUrl] = useState(route.params.url)
 
-    const competitionData = usePaginationFetch<CompetitionType>(url)
+    const [filter, setFilter] = useState<FilterType>({})
+
+    const isFocused = useIsFocused();
+
+    const competitionData = usePaginationFetch<CompetitionType>(url,null , isFocused)
 
     useEffect(() =>{
-        setUrl(generateFilterUrl(route.params.url, route.params.value, undefined, undefined))
-    }, [route.params])
+        setUrl(generateFilterUrl(route.params.url, route.params.value, filter, undefined))
+        console.log(url)
+    }, [route.params, filter])
     
     const renderCompetition: ListRenderItem<CompetitionType> = ({item}) => {
         return (
@@ -32,9 +39,9 @@ const Competitions: FC<StackScreenProps<CompetitionsParamList, 'CompetitionScree
     return(
         <PaginationList 
             stateList={competitionData}
-            headerComponent={<StatementButton text = '+ Разместить конкурс' />}
             renderItem={renderCompetition}
             emtytext='Конкурсы не найдены'
+            headerComponent={<Filter filter={filter} setFilter={setFilter} />}
         />
     )
 }

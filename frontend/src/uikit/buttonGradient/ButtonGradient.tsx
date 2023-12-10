@@ -9,16 +9,18 @@ type ButtonGradientProps = {
     action: () => void,
     text: string,
     containerStyle?: StyleProp<ViewStyle>,
-    buttonStyle?: StyleProp<ViewStyle>
+    buttonStyle?: StyleProp<ViewStyle>,
+    disabled?: boolean
 }
 
-const ButtonGradient: FC<ButtonGradientProps> = ({action, text, containerStyle, buttonStyle}) => {
+const ButtonGradient: FC<ButtonGradientProps> = ({action, text, containerStyle, buttonStyle, disabled}) => {
     
     return(
         <View style = {containerStyle}>
-            <Button activity = {action} buttonStyle={buttonStyle}>
+            <Button activity = {action} buttonStyle={buttonStyle} disabled = {disabled}>
                 <LinearGradient 
-                colors={['#FFE974', '#FFA15E']}
+                colors={disabled ? ['#888','#888'] : ['#FFE974', '#FFA15E']}
+                aria-disabled={disabled}
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 0 }} 
                 style = {styleButtonGradient.gradient}

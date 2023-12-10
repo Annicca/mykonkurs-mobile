@@ -152,7 +152,6 @@ public class Statement {
     }
 
     public Statement(User user, TypeStatement type, String name, String description, City city, Date dateStart, Date dateFinish) {
-
         this.user = user;
         this.type = type;
         this.name = name;

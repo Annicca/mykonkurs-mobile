@@ -17,6 +17,8 @@ import { authStyle } from '../styles/auth/authStyle';
 import { yelowButtonStyle } from '../styles/yellowButton/yellowButton';
 import { setData } from '../utils/asyncStorage/setData';
 import { accentTextStyle } from '../styles/accentText/AccentText';
+import ArrowButton from '../components/arrowButton/ArrowButton';
+import { formStyle } from '../styles/form/formStyle';
 
 const Registry: FC<StackScreenProps<AccountParamList, 'Registry'>> = ({navigation}) => {
 
@@ -43,16 +45,22 @@ const Registry: FC<StackScreenProps<AccountParamList, 'Registry'>> = ({navigatio
     }
 
     const onRegistry = handleSubmit(async (data) => {
-        await instance.post('login', JSON.stringify(data))
+        await instance.post('register', JSON.stringify(data))
         .then((response) => {
             setData('user', JSON.stringify(response.data.user))
             setData('jwt', response.data.token)
             setContext({user: response.data.user, jwt: response.data.token})
             navigation.navigate('Account')
         })
-        .catch((error) =>{
-            setError('Вы ввели неправильно логин или пароль')
-            console.log(error.data.message);
+        .catch((e) =>{
+            console.log(e.response?.data);
+            if(e.response?.data.errors) {
+                setError('* Пожалуйста, проверьте все обязательные поля')
+            } else if(e.response?.data.message) {
+                setError(e.response.data.message)
+             } else {
+                setError('Мы не смогли отправить данные((')
+            }
         })
     });
 
@@ -76,10 +84,10 @@ const Registry: FC<StackScreenProps<AccountParamList, 'Registry'>> = ({navigatio
                         <SecondStep step = {step} control = {control} errors = {errors} />
                         <ThirdStep step = {step} control = {control} errors = {errors} />
 
-                        {!isValid && <Text style = {[accentTextStyle, authStyle.errorText]}>{error}</Text>}
-                        <View style = {arrowButtonStyle.buttonContainer}>
-                            {step >= 2 && <Button disabled={!isValid} activity={goBack} buttonStyle = {[yelowButtonStyle.button, arrowButtonStyle.button]}><Image source = {ArrowLeft} style = {{width: 20, height: 20}}/></Button>}
-                            {step < 3 && <Button disabled={!isValid} activity={goNext} buttonStyle = {[yelowButtonStyle.button, arrowButtonStyle.button]}><Image source = {ArrowRight} style = {{width: 20, height: 20}}/></Button>}
+                        {error && <Text style={[accentTextStyle, authStyle.errorText]}>{error}</Text>}
+                        <View style = {formStyle.buttonContainer}>
+                            {step >= 2 && <ArrowButton disabled = {!isValid} activity={goBack} icon={ArrowLeft} />}
+                            {step < 3 && <ArrowButton disabled={!isValid} activity={goNext} icon = {ArrowRight} />}
                             {step === 3 && 
                                 <ButtonWithText
                                     activity={onRegistry} 
@@ -95,18 +103,5 @@ const Registry: FC<StackScreenProps<AccountParamList, 'Registry'>> = ({navigatio
         </View>
     )
 }
-
-const arrowButtonStyle = StyleSheet.create({
-    button: {
-        padding: 10,
-        borderRadius: 40
-    },
-    buttonContainer: {
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-
-})
 
 export default Registry;
