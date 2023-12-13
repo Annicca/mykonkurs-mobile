@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { View } from "react-native";
 import { StepProps } from "../../types/StepProps";
 import InputControl from "../../uikit/input/inputControl";
 
@@ -9,22 +8,22 @@ export const SecondStep:FC<StepProps> = ({step, control, errors}) => {
         <>
             <InputControl 
                 placeholder='Телефон'
-                name = "phone"
+                name = "phoneUser"
                 control={control}
                 rules = {{
                     pattern: {value: /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/, message: "Неккоректно введён номер телефона"}
                 }}
-                error = {errors.phone && errors.phone.message?.toString()}
+                error = {errors.phoneUser && errors.phoneUser.message?.toString()}
             />
             <InputControl 
                 placeholder='Email'
-                name = "email"
+                name = "mailUser"
                 control={control}
                 rules = {{
                     required : 'Поле обязательно',
                     pattern: {value: /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]/, message: "Неккоректно введён Email"}
                 }}
-                error = {errors.email && errors.email.message?.toString()}
+                error = {errors.mailUser && errors.mailUser.message?.toString()}
             />
         </>
     )

@@ -1,4 +1,5 @@
 import { FC, useState, useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import usePaginationFetch from '../hooks/usePaginationFetch';
 import { StackScreenProps } from '@react-navigation/stack';
 import { AccountParamList } from '../components/navigation/navBarAccount';
@@ -13,9 +14,11 @@ const Users: FC<StackScreenProps<AccountParamList, 'Users'>> = ({route}) => {
 
     const {user, jwt: token} = useUserContext().context;
 
+    const isFocused = useIsFocused()
+
     const [url, setUrl] = useState<string>('users')
 
-    const usersData = usePaginationFetch<UserType>(url, token)
+    const usersData = usePaginationFetch<UserType>(url, token, isFocused)
 
     useEffect(() => {
         route.params.value !== undefined ? setUrl(`${route.params.url}/${route.params.value}`) : setUrl('users')

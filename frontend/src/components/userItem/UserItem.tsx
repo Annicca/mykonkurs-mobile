@@ -8,9 +8,6 @@ type UserItemProps = {
 
 const UserItem : FC<UserItemProps> = ({user}) => {
     return(
-        // <View style = {[mainContainerStyle]}>
-        //     <Text style = {textStyle}>{user.nameUser}</Text>
-        // </View>
         <AccountInfo user={user} isAccount = {false} />
     )
 }

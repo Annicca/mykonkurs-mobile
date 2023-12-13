@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { View } from "react-native";
 import { StepProps } from "../../types/StepProps";
 import InputControl from "../../uikit/input/inputControl";
 
@@ -9,33 +8,32 @@ export const FirstStep:FC<StepProps> = ({step, control, errors}) => {
         <>
             <InputControl 
                 placeholder='Фамилия'
-                name = "surName"
+                name = "surnameUser"
                 control={control}
                 rules = {{
                     required : 'Поле обязательно',
                     pattern: {value: /^([A-Za-zА-Яа-яЁё]+$)/, message: "Поле должно содержать только буквы"}
                 }}
-                error = {errors.surName && errors.surName.message?.toString()}
+                error = {errors.surnameUser && errors.surnameUser.message?.toString()}
             />                        
             <InputControl 
                 placeholder='Имя'
-                name = "name"
+                name = "nameUser"
                 control={control}
                 rules = {{
                     required : 'Поле обязательно',
                     pattern: {value: /^([A-Za-zА-Яа-яЁё]+$)/, message: "Поле должно содержать только буквы"}
                 }}
-                error = {errors.name && errors.name.message?.toString()}
+                error = {errors.nameUser && errors.nameUser.message?.toString()}
             />
             <InputControl 
                 placeholder='Отчество'
-                name = "patronimyc"
+                name = "patronimycUser"
                 control={control}
                 rules = {{
-                    required : 'Поле обязательно',
                     pattern: {value: /^([A-Za-zА-Яа-яЁё]+$)/, message: "Поле должно содержать только буквы"}
                 }}
-                error = {errors.patronimyc && errors.patronimyc.message?.toString()}
+                error = {errors.patronimycUser && errors.patronimycUser.message?.toString()}
             />
         </>
     )

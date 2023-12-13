@@ -7,7 +7,6 @@ export const deleteFetch = (url: string, token: string | null | undefined, actio
     .then((response) =>{
         action(response.data.content)
         Alert.alert('Успешно удалено');
-        console.log('E')
     })
     .catch((error)=>{
         if(error.response){

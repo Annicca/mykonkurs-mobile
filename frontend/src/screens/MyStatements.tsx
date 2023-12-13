@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { useUserContext } from '../context/UserContext';
 import usePaginationFetch from '../hooks/usePaginationFetch';
 import { StatementType } from '../types/StatementType';
@@ -17,7 +18,9 @@ const MyStatements: FC<StackScreenProps<AccountParamList, 'MyStatements'>> = ({n
 
     const [url, setUrl] = useState<string>(user?.role === UserRole.ADMIN ? 'statements' : `mystatements/${user?.idUser}`)
 
-    const statementData = usePaginationFetch<StatementType>(url, token)
+    const isFocused = useIsFocused()
+
+    const statementData = usePaginationFetch<StatementType>(url, token, isFocused)
 
     useEffect(() => {
         if(user?.role === UserRole.ADMIN) {

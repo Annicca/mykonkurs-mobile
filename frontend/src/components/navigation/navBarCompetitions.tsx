@@ -7,6 +7,7 @@ import Header from '../header/header';
 import Search from '../search/search';
 import Competition from '../../screens/Competition';
 import StatementParticipantFrom from '../../screens/StatementParticipantFrom';
+import { CompetitionType } from '../../types/CompetitionType';
 
 export type CompetitionsParamList = {
     CompetitionScreen: {
@@ -19,7 +20,7 @@ export type CompetitionsParamList = {
     },
     StatementParticipantFrom: {
         url?: string
-        idCompetition: number,
+        competition: CompetitionType,
     }
 }
 

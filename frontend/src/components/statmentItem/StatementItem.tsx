@@ -1,18 +1,17 @@
 import {FC, useState, memo} from 'react'
 import { useUserContext } from '../../context/UserContext'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { StatementType } from '../../types/StatementType'
 import { mainContainerStyle } from '../../styles/containers/MainContainer'
-import { StatementIcon } from '../../../public/icons'
 import { textStyle } from '../../styles/text/textStyle'
 import { accentTextStyle } from '../../styles/accentText/AccentText'
-import { chooseStatusStatement } from '../../utils/chooseStatusStatement'
 import { chooseTypeStatement } from '../../utils/chooseTypeStatement'
 import { StatementType as TypeStatement, UserRole } from '../../consts/const'
 import DescriptionItem from '../descriptionItem/DescriptionItem'
 import Button from '../../uikit/button/button'
 import { confirm } from '../../utils/confirm'
 import { changeStatus } from '../../utils/changeStatus'
+import StatementTitle from '../statementTitle/StatementTitle'
 
 type StatementItemProps = {
     statementInit: StatementType
@@ -26,14 +25,10 @@ const StatementItem: FC<StatementItemProps> = ({statementInit}) => {
 
     const changeStatementStatus = (id: number, status: string ) => {
         confirm('Вы действительно хотите изменить статус?', () =>
-        changeStatus(id, status, setStatement, jwt))
+        changeStatus(`statements/${status}/${id}`, status, setStatement, jwt))
     }
 
     const styleStatementItem = StyleSheet.create({
-        info: {
-            flexDirection: 'row',
-            columnGap: 20
-        },
         dataStatement: {
             paddingTop: 10,
             rowGap: 5
@@ -62,13 +57,7 @@ const StatementItem: FC<StatementItemProps> = ({statementInit}) => {
 
     return(
         <View style = {mainContainerStyle}>
-            <View style={styleStatementItem.info}>
-                <Image source={StatementIcon} style={{width: 40, height: 40}} />
-                <View>
-                    <Text style={textStyle}>Заявка № {statement.idStatement}</Text>
-                    <Text style={accentTextStyle}>Статус: {statement.statusStatement ? chooseStatusStatement(statement.statusStatement) : '-'}</Text>
-                </View>
-            </View>
+            <StatementTitle number={statement.idStatement} status={statement.statusStatement} />
             <View style={styleStatementItem.dataStatement}>
                 <Text style = {accentTextStyle}>Тип: {chooseTypeStatement(statement.type)}</Text>
                 <Text style = {textStyle}>Название: {statement.name}</Text>

@@ -4,6 +4,7 @@ type StyleInputType = {
     input: ViewStyle,
     focused: ViewStyle,
     error: TextStyle,
+    textarea: ViewStyle
 }
 
 export const styleInput = StyleSheet.create<StyleInputType>({
@@ -25,5 +26,8 @@ export const styleInput = StyleSheet.create<StyleInputType>({
         fontFamily: 'Inter-Regular',
         fontSize: 14,
         color: '#FF6B00'
+    },
+    textarea:{
+        height: 300,
     }
 })

@@ -23,8 +23,9 @@ public class GroupChangeDTO {
 
     private String category;
 
-    private MultipartFile img;
+//    private MultipartFile img;
 
+    private String img;
     public Integer getIdGroup() {
         return idGroup;
     }
@@ -73,11 +74,19 @@ public class GroupChangeDTO {
         this.category = category;
     }
 
-    public MultipartFile getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(MultipartFile img) {
+    public void setImg(String img) {
         this.img = img;
     }
+
+    //    public MultipartFile getImg() {
+//        return img;
+//    }
+//
+//    public void setImg(MultipartFile img) {
+//        this.img = img;
+//    }
 }

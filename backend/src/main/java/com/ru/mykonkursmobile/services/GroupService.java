@@ -57,9 +57,9 @@ public class GroupService implements IArtGroupService {
     public ArtGroup update(GroupChangeDTO group) throws NotFoundEntityException, IOException {
 
         ArtGroup groupChange = getById(group.getIdGroup());
-        if( group.getImg() != null){
-            groupChange.setImg(fileServise.saveImg(group.getImg()));
-        }
+//        if( group.getImg() != null){
+//            groupChange.setImg(fileServise.saveImg(group.getImg()));
+//        }
         groupChange.setCityGroup(cityService.getById(group.getIdCity()));
         groupChange.update(group);
         return repository.save(groupChange);
@@ -105,6 +105,10 @@ public class GroupService implements IArtGroupService {
         return repository.findParticipant(idCompetition);
     }
 
+
+    public Page<ArtGroup> getPageParticipants(Integer idCompetition, Pageable pageable) {
+        return repository.findPageParticipant(idCompetition,pageable);
+    }
 
 
 }

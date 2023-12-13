@@ -27,4 +27,7 @@ public interface GroupRepository extends JpaRepository<ArtGroup,Integer> {
     @Query(value ="select * from art_group g WHERE g.id_group in (select p.id_group from participant p where p.id_competition = :idCompetition)", nativeQuery = true)
     List<ArtGroup> findParticipant(@Param("idCompetition") Integer idCompetition);
 
+    @Query(value ="select * from art_group g WHERE g.id_group in (select p.id_group from participant p where p.id_competition = :idCompetition)", nativeQuery = true)
+    Page<ArtGroup> findPageParticipant(@Param("idCompetition") Integer idCompetition, Pageable pageable);
+
 }

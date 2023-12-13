@@ -55,7 +55,9 @@ export default memo(CompetitionItem,
     (oldProps, newProps) => {
       if (
         oldProps.competition !== newProps.competition &&
-        oldProps.competition.idCompetition !== newProps.competition.idCompetition
+        oldProps.competition.idCompetition !== newProps.competition.idCompetition &&
+        oldProps.competition.nameCompetition !== newProps.competition.nameCompetition &&
+        oldProps.competition.cityCompetition !== newProps.competition.cityCompetition
       ) {
         return true;
       }

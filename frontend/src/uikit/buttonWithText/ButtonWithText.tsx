@@ -14,7 +14,7 @@ type ButtonWithTextProps = {
 const ButtonWithText: FC<ButtonWithTextProps> = ({activity, buttonContainerStyle, textStyle, text, disabled}) => {
 
     return(
-        <Button activity={activity} buttonStyle = {buttonContainerStyle} disabled={disabled}>
+        <Button activity={activity} buttonStyle = {disabled ? [buttonContainerStyle, {backgroundColor: '#888'}] : buttonContainerStyle} disabled={disabled}>
             <Text style={textStyle}>{text}</Text>
         </Button>
     )

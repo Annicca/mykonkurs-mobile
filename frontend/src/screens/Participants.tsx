@@ -1,39 +1,41 @@
 import { FC, useState, useEffect } from "react";
+import { useIsFocused } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { AccountParamList } from "../components/navigation/navBarAccount";
 import { useUserContext } from "../context/UserContext";
 import usePaginationFetch from "../hooks/usePaginationFetch";
 import { GroupType } from "../types/GroupType";
-import { Text } from "react-native";
-import { accentTextStyle } from "../styles/accentText/AccentText";
-import Spinner from "../components/spinner/Spinner";
+import { ListRenderItem } from "react-native";
+import ParticipantItem from "../components/participantItem/ParticipantItem";
+import PaginationList from "../components/paginationList/PaginationList";
 
 const Participants: FC<StackScreenProps<AccountParamList, 'Participants'>> = ({navigation, route}) => {
 
     const {user, jwt: token} = useUserContext().context;
 
-    const [url, setUrl] = useState<string>(`/mycompetitions/participants/${route.params.competitionId}`)
+    const [url, setUrl] = useState<string>(`mycompetitions/participants/${route.params.competitionId}`)
 
-    const groupData = usePaginationFetch<GroupType>(url, token)
+    const isFocused = useIsFocused()
+
+    const participants = usePaginationFetch<GroupType>(url, token, isFocused)
 
     useEffect(() => {
-        setUrl(`/mycompetitions/participants/${route.params.competitionId}`)
+        setUrl(`mycompetitions/participants/${route.params.competitionId}`)
     }, [route.params])
 
-
-    if(groupData.loading) {
+    const renderParticipant: ListRenderItem<GroupType> = ({item}) => {
         return (
-            <Spinner />
-        )
-    } else if(groupData.data && groupData.data.length === 0) {
-        return(
-            <Text style = {accentTextStyle}>У вас ещё нет участников</Text>
-        )
-    } else 
-        return(
-            
-            <Text>Participants</Text>
-        )
+            <ParticipantItem participant={item}/>
+        );
+    };
+
+    return(
+        <PaginationList 
+        stateList={participants}
+        renderItem={renderParticipant}
+        emtytext='У вас ещё нет коллективов'
+        />
+    )
 }
 
 export default Participants;

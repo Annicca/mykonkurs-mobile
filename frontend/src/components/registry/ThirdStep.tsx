@@ -8,19 +8,19 @@ export const ThirdStep:FC<StepProps> = ({step, control, errors}) => {
         <>
             <InputControl 
                 placeholder='Логин'
-                name = 'login'
+                name = 'loginUser'
                 control={control}
                 rules = {{
                     required : 'Поле обязательно',
                     minLength: {value: 5, message: 'Длина не менее 5 символов'},
                     pattern: {value: /^[A-Za-z0-9]+$/, message: "Логин должен содержать только буквы латинского алфавита и цифры"}
                 }}
-                error = {errors.login && errors.login.message?.toString()}
+                error = {errors.loginUser && errors.loginUser.message?.toString()}
                 
             />
             <InputControl 
                 placeholder='Пароль' 
-                name = 'password'
+                name = 'passwordUser'
                 secureTextEntry={true}
                 control={control}
                 rules = {{
@@ -32,7 +32,7 @@ export const ThirdStep:FC<StepProps> = ({step, control, errors}) => {
                         includeSpecialCharacter: (value) => /[!@#$%^&*]/.test(value) || "Пароль должен содержать хотя бы 1 спецсимвол"
                     }
                 }}
-                error = {errors.password?.message}
+                error = {errors.passwordUser && errors.passwordUser.message?.toString()}
             />
         </>
     )

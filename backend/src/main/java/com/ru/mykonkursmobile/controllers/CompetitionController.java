@@ -45,9 +45,20 @@ public class CompetitionController {
         return service.getByOrganizerId(userId, pageable);
     }
 
+//    @PutMapping("/competitions")
+//    @ResponseBody
+//    public ResponseEntity UpdateCompetition(@ModelAttribute @Valid CompetitionChangeDTO competition) throws IOException {
+//
+//        try {
+//            return ResponseEntity.ok(service.update(competition));
+//        }catch(IOException e){
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+//        }
+//    }
+
     @PutMapping("/competitions")
     @ResponseBody
-    public ResponseEntity UpdateCompetition(@ModelAttribute @Valid CompetitionChangeDTO competition) throws IOException {
+    public ResponseEntity UpdateCompetitionJson(@RequestBody @Valid CompetitionChangeDTO competition) throws IOException {
 
         try {
             return ResponseEntity.ok(service.update(competition));

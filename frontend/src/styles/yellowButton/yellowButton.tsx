@@ -17,6 +17,7 @@ export const yelowButtonStyle = StyleSheet.create<YellowButtonStyle>({
         borderWidth: 1,
     },
     textButton: {
-        fontFamily: 'Inter-Medium',
+        fontFamily: 'Inter-Bold',
+        color: '#FFF'
     }
 })

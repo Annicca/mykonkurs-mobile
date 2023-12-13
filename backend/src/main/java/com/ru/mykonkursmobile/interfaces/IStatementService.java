@@ -24,7 +24,7 @@ public interface IStatementService extends IService<Statement>{
      * @param id - id statement
      * @return accepted statement
      * @throws NotFoundEntityException if statement does not exist
-     * @throws ChangeStatusException if statement already has status and failed to place competition - see {@link com.ru.mykonkurs.models.Competition} or group - see {@link com.ru.mykonkurs.models.ArtGroup}
+     * @throws ChangeStatusException if statement already has status and failed to place competition - see {@link com.ru.mykonkursmobile.models.Competition} or group - see {@link com.ru.mykonkursmobile.models.ArtGroup}
      */
     Statement accept(Integer id) throws NotFoundEntityException, ChangeStatusException;
 

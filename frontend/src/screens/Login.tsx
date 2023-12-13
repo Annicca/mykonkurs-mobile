@@ -30,9 +30,12 @@ const Login: FC<StackScreenProps<AccountParamList, 'Login'>> = ({navigation}) =>
             setContext({user: response.data.user, jwt: response.data.token})
             navigation.navigate('Account')
         })
-        .catch((error) =>{
-            setError('Вы ввели неправильно логин или пароль')
-            console.log(error.message);
+        .catch((e) =>{
+            if(e.response){
+                setError(e.response.data.message)
+             }else{
+                setError('Мы не смогли отправить данные((')
+            }
         })
     });
 
