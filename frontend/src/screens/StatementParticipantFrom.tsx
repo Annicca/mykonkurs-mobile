@@ -62,7 +62,6 @@ const StatementParticipantFrom: FC<StackScreenProps<CompetitionsParamList, 'Stat
                 ]);
             })
             .catch(e => {
-                console.log(e.response.data)
                 if(e.response.data) {
                     Alert.alert('Ошибка', e.response.data.message)
                 } else {

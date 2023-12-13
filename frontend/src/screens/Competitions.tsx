@@ -24,7 +24,6 @@ const Competitions: FC<StackScreenProps<CompetitionsParamList, 'CompetitionScree
 
     useEffect(() =>{
         setUrl(generateFilterUrl(route.params.url, route.params.value, filter, undefined))
-        console.log(url)
     }, [route.params, filter])
     
     const renderCompetition: ListRenderItem<CompetitionType> = ({item}) => {
@@ -32,7 +31,6 @@ const Competitions: FC<StackScreenProps<CompetitionsParamList, 'CompetitionScree
             <Button activity={() => navigation.navigate('Competition', {idCompetition: item.idCompetition})}>
                 <CompetitionItem competition={item} />
             </Button>
-
         );
     };
 

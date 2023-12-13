@@ -92,7 +92,6 @@ const EditItem: FC<StackScreenProps<AccountParamList, 'EditItem'>> = ({route, na
                     }else{
                         Alert.alert('Ошибка', "Мы не смогли изменить данные(")
                     }
-                    console.log(e.response.data);
                 })
         })
     })

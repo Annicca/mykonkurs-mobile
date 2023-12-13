@@ -53,7 +53,6 @@ const Registry: FC<StackScreenProps<AccountParamList, 'Registry'>> = ({navigatio
             navigation.navigate('Account')
         })
         .catch((e) =>{
-            console.log(e.response?.data);
             if(e.response?.data.errors) {
                 setError('* Пожалуйста, проверьте все обязательные поля')
             } else if(e.response?.data.message) {

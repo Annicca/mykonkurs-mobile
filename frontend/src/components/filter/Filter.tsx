@@ -26,7 +26,6 @@ const Filter : FC<FilterProps> = ({filter, setFilter}) => {
     
     const handleOpenFilter = () => {
         setIsOpenFilter(!isOpenFilter)
-        console.log('a')
     }
 
     const resetFilter = () => [

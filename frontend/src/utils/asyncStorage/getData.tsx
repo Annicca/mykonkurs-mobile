@@ -5,7 +5,6 @@ export const getData = async(key:string) => {
       const data = await AsyncStorage.getItem(key);
       return data
     } catch (e) {
-        console.log(e)
         return null
     }
 };

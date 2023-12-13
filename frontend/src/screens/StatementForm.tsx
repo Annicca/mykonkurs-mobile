@@ -66,7 +66,6 @@ const StatementForm: FC<StackScreenProps<AccountParamList, 'StatementForm'>> = (
         await instance.post(`statements/${user?.idUser}`, JSON.stringify(statement), getRequestConfig(jwt))
             .then(() => navigation.navigate('MyStatements', {url:'statements'}))
             .catch((e) =>{ 
-                console.log(e.response?.data);
                 if(e.response?.data.message) {
                     Alert.alert('Ошибка',e.response.data.message);
                  } else {

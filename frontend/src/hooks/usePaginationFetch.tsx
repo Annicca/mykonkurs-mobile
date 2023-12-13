@@ -37,7 +37,6 @@ function usePaginationFetch<T>(url: string, token?: string | null, isFocused?: b
       .catch(err => {
           setLoading(false)
           setError(err.message)
-          console.log(err)
       })
   }, [url, page, token, isFocused])
 
