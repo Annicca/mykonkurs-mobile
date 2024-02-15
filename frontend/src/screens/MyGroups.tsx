@@ -12,6 +12,7 @@ import { accentTextStyle } from '../styles/accentText/AccentText';
 import MyGroupItem from '../components/myGroupItem/MyGroupItem';
 import { confirm } from '../utils/confirm';
 import { deleteFetch } from '../utils/delete';
+import Button from '../uikit/button/button';
 
 const MyGroups: FC<StackScreenProps<AccountParamList, 'MyGroups'>> = ({navigation}) => {
 
@@ -37,7 +38,10 @@ const MyGroups: FC<StackScreenProps<AccountParamList, 'MyGroups'>> = ({navigatio
 
     const renderGroup: ListRenderItem<GroupType> = ({item}) => {
         return (
-            <MyGroupItem group={item} deleteItem={() => deleteGroup(item.idGroup)} toChangeItem={() => toChange(item.idGroup)}/>
+            <Button onLongPress={() => deleteGroup(item.idGroup)}>
+                <MyGroupItem group={item} deleteItem={() => deleteGroup(item.idGroup)} toChangeItem={() => toChange(item.idGroup)}/>
+            </Button>
+            
         );
     };
 

@@ -1,7 +1,5 @@
 import { FC } from 'react';
 import {View, Text, StyleSheet, StyleProp, ViewStyle} from 'react-native';
-import { useNavigation, ParamListBase } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import Button from '../../uikit/button/button';
 import LinearGradient from 'react-native-linear-gradient';
 

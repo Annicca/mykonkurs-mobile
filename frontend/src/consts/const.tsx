@@ -16,9 +16,9 @@ export enum StatementStatus {
 }
 
 //home
-export const baseURL = 'http://192.168.31.70:8080/api/'
+// export const baseURL = 'http://192.168.31.70:8080/api/'
 
-export const imgURL = 'http://192.168.31.70:8080/img/'
+// export const imgURL = 'http://192.168.31.70:8080/img/'
 
 // work
 // export const baseURL = 'http://192.168.0.122:8080/api/'
@@ -26,6 +26,6 @@ export const imgURL = 'http://192.168.31.70:8080/img/'
 // export const imgURL = 'http://192.168.0.122:8080/img/'
 
 //phone
-// export const baseURL = 'http://192.168.88.112:8080/api/'
+export const baseURL = 'http://192.168.88.112:8080/api/'
 
-// export const imgURL = 'http://192.168.88.112:8080/img/'
+export const imgURL = 'http://192.168.88.112:8080/img/'

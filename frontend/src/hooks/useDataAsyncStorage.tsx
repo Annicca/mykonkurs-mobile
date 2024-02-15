@@ -12,7 +12,5 @@ export const useDataAsyncStorage = (dataKey: string): string | null => {
             });
     })
 
-
-
     return data;
 }

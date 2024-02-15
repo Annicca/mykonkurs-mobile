@@ -2,7 +2,7 @@ import { FilterType } from "../types/FilterType";
 
 
 
-export const generateFilterUrl = (url : string, city : string | undefined, filter : FilterType, sort: boolean | undefined) =>{
+export const generateFilterUrl = (url : string, city : string | undefined, filter : FilterType | undefined, sort: boolean | undefined) =>{
     if(!city && !filter && !sort) {
         return url
     }

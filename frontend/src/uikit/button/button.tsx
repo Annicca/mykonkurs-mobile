@@ -4,13 +4,15 @@ import { StyleProp, TouchableOpacity, ViewStyle } from "react-native"
 type ButtonProps = {
     activity?: () => void,
     buttonStyle?: StyleProp<ViewStyle>,
-    disabled?: boolean
+    disabled?: boolean,
+    onLongPress?: () => void
 }
 
-const Button: FC<PropsWithChildren<ButtonProps>> = ({activity = () => {}, buttonStyle, children, disabled = false }) => {
+const Button: FC<PropsWithChildren<ButtonProps>> = ({activity = () => {}, onLongPress = () => {}, buttonStyle, children, disabled = false }) => {
     return (
         <TouchableOpacity
             onPress={activity}
+            onLongPress={onLongPress}
             style = {buttonStyle}
             activeOpacity={ disabled ? 1 :  0.6}
             disabled = {disabled}
