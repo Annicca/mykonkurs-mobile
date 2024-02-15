@@ -1,4 +1,4 @@
-import { useEffect, ReactElement } from 'react';
+import { useEffect, ReactElement, Key } from 'react';
 import { useRoute } from '@react-navigation/native';
 import { FetchTypePagination } from '../../hooks/usePaginationFetch';
 import {View, Text, FlatList,  ListRenderItem, StyleSheet} from 'react-native';

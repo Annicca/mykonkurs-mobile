@@ -2,12 +2,11 @@ import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useUserContext } from '../context/UserContext';
 import { instance } from '../utils/instance';
-import { View, Text, Image, StyleSheet } from "react-native"
+import { View, Text } from "react-native"
 import { StackScreenProps } from '@react-navigation/stack';
 import { AccountParamList } from '../components/navigation/navBarAccount';
 import LinearGradient from 'react-native-linear-gradient';
 import ButtonWithText from '../uikit/buttonWithText/ButtonWithText';
-import Button from '../uikit/button/button';
 import { FirstStep } from '../components/registry/FirstStep';
 import { SecondStep } from '../components/registry/SecondStep';
 import { ThirdStep } from '../components/registry/ThirdStep';
